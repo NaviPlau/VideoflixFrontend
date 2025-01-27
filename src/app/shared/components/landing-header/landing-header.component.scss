@@ -1,0 +1,13 @@
+@use '../../styles/mixins.scss' as *;
+
+header{
+  width: 100%;
+  @include display(flex, row, space-between, center);
+  height: 108px;
+  padding: 0 96px;
+}
+
+img{
+  width: 200px;
+  height: 32px;
+}

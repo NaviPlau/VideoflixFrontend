@@ -1,0 +1,11 @@
+@mixin display($display: flex,$flex-direction: row, $justify-content: center, $align-items: center ) {
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  display: $display;
+}
+
+
+$blue : #2E3EDF;
+$blue-hover : #2e3edf80;
+$blue-disabled : #969EEF;

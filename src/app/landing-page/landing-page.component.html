@@ -1,1 +1,10 @@
-<h1>hallo World</h1>
+<div
+  class="background"
+  [ngClass]="backgroundService.animationClass()"
+  [ngStyle]="{ 'background-image': 'url(' + backgroundService.currentBackground() + ')' }">
+</div>
+
+<section>
+  <app-landing-header></app-landing-header>
+</section>
+
