@@ -3,7 +3,7 @@
     <h1>Movies, TV shows, and more</h1>
     <p>Enter your email to create or restart your subscription.</p>
   </div>
-  <form [formGroup]="emailForm" (submit)="navigator.navigateTo('/inprint')">
+  <form class="form-landing" [formGroup]="emailForm" (submit)="navigator.navigateTo('/inprint')">
     <input
       type="email"
       placeholder="Email address"

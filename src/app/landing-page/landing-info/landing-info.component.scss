@@ -6,7 +6,7 @@ h1{
   font-size: 48px;
 }
 
-form{
+.form-landing{
   width: 100%;
   @include display(flex, row, center, center);
   gap: 16px;

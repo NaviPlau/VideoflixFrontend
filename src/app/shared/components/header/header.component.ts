@@ -4,12 +4,12 @@ import { MatIcon } from '@angular/material/icon';
 import { NavigationService } from '../../services/navigation-service/navigation.service';
 
 @Component({
-  selector: 'app-landing-header',
+  selector: 'app-header',
   imports: [MatIcon],
-  templateUrl: './landing-header.component.html',
-  styleUrl: './landing-header.component.scss'
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss'
 })
-export class LandingHeaderComponent {
+export class HeaderComponent {
   actualRoute: string;
   navigator = inject(NavigationService);
 

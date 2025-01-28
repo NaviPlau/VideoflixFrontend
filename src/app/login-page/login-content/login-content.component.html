@@ -1,10 +1,11 @@
-<form [formGroup]="loginForm" (submit)="authService.login()">
+<form [formGroup]="loginForm" class="form-login" (submit)="login()">
   <div class="formField">
     <input type="email" placeholder="Email address" formControlName="email">
     <mat-icon>email</mat-icon>
   </div>
   <div class="formField">
     <input type="password" placeholder="Password" formControlName="password"> 
-    <mat-icon>lock</mat-icon>
+    <mat-icon>visibility_off</mat-icon>
   </div>
+  <button class="default" [disabled]="!loginForm.valid" type="submit">Sign in</button>
 </form>

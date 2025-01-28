@@ -3,6 +3,7 @@ import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../shared/services/auth-service/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginInterface } from '../../shared/interfaces/login-interface';
 
 @Component({
   selector: 'app-login-content',
@@ -16,8 +17,13 @@ export class LoginContentComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
       password: ['', Validators.required]
     });
+  }
+
+  login(){
+    this.authService.loginData.set(this.loginForm.value as LoginInterface);
+    console.log(this.authService.loginData());
   }
 }
