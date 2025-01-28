@@ -10,3 +10,19 @@ section{
   width: 100%;
   max-width: 1920px;
 }
+
+.landing-main-content{
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include display(flex, column, center, center);
+}
+
+app-landing-header{
+  width: 100%;
+}
+
+
+

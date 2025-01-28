@@ -5,9 +5,29 @@ header{
   @include display(flex, row, space-between, center);
   height: 108px;
   padding: 0 96px;
+  
 }
 
 img{
   width: 200px;
   height: 32px;
+
+  &:hover{
+    cursor: pointer;
+    scale: 1.05;
+    transition: 125ms;
+  }
+}
+
+mat-icon{
+  font-size: 32px;
+  height: auto;
+  width: auto;
+  color: white;
+  cursor: pointer;
+  &:hover{
+    cursor: pointer;
+    scale: 1.05;
+    transition: 125ms;
+  }
 }

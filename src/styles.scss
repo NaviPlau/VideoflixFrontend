@@ -25,13 +25,24 @@
 
 button{
   border-radius: 40px;
-  padding: 12px 12px;
+  @include display(flex, row, center, center);
+  padding: 8px 16px;
   border: 1px solid transparent;
   color: white;
-  font-size: ;
+  font-size: 18px;
+  font-weight: 700;
   &.default{
     background-color: $blue;
     cursor: pointer;
+    &:hover{
+      background-color: $blue-hover;
+      scale: 1.05;
+      transition: 125ms ease-in-out;
+    }
+    &:disabled{
+      background-color: $blue-disabled;
+      cursor: not-allowed;
+    }
   }
 }
 
