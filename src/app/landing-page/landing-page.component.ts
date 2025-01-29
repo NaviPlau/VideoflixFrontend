@@ -3,10 +3,11 @@ import { BackgroundImageService } from '../shared/services/bg-image-service/back
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../shared/components/header/header.component";
 import { LandingInfoComponent } from "./landing-info/landing-info.component";
+import { FooterComponent } from "../shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CommonModule, HeaderComponent, LandingInfoComponent],
+  imports: [CommonModule, HeaderComponent, LandingInfoComponent, FooterComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })

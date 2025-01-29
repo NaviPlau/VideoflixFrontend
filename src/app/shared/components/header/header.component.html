@@ -1,9 +1,9 @@
 <header>
   <img (click)="navigator.navigateTo('/')"   src="shared/images/logo-long.webp" alt="">
-  @if(actualRoute != "/login" && actualRoute != "/inprint" && actualRoute != "/privacy-policy"){
+  @if(actualRoute != "/login" && actualRoute != "/imprint" && actualRoute != "/privacy-policy"){
     <button (click)="navigator.navigateTo('/login')" class="default">Log in</button>
   }
-  @if( actualRoute == "/inprint" || actualRoute == "/privacy-policy"){
+  @if( actualRoute == "/imprint" || actualRoute == "/privacy-policy"){
     <mat-icon (click)="navigator.goBack()">arrow_back</mat-icon>
   }
 </header>

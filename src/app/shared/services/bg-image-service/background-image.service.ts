@@ -6,7 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class BackgroundImageService {
   images = signal<string[]>(this.generateImagePaths(10, 'shared/images/background', '.png'));
   currentBackground = signal<string>(this.images()[0]);
-  animationClass = signal<string>('fade-in'); // Manage animation class
+  animationClass = signal<string>('fade-in'); 
   lastIndex = 0;
 
   constructor() {
@@ -22,20 +22,18 @@ export class BackgroundImageService {
       const availableIndexes = this.images()
         .map((_, index) => index)
         .filter((index) => index !== this.lastIndex);
-
       const randomIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
       this.lastIndex = randomIndex;
-
       this.currentBackground.set(this.images()[randomIndex]);
-      this.resetAnimation(); // Reset animation whenever the background changes
+      this.resetAnimation(); 
     }, 10000);
   }
 
   resetAnimation(): void {
-    this.animationClass.set(''); // Remove the animation class
+    this.animationClass.set(''); 
     setTimeout(() => {
-      this.animationClass.set('fade-in'); // Reapply the animation class
-    }, 5); // Short delay to force reapplication
+      this.animationClass.set('fade-in'); 
+    }, 5); 
   }
 }
 

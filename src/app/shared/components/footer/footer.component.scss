@@ -1,0 +1,22 @@
+@use '../../styles/mixins.scss' as *;
+
+footer{
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  width: 100%;
+  @include display(flex, row, center, center);
+  gap: 32px;
+  padding: 24px 48px;
+}
+
+strong{
+  
+  &:hover{
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 4px;
+    cursor: pointer;
+    scale: 1.02;
+  }
+}

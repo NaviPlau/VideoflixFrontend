@@ -3,7 +3,7 @@
     <h1>Movies, TV shows, and more</h1>
     <p>Enter your email to create or restart your subscription.</p>
   </div>
-  <form class="form-landing" [formGroup]="emailForm" (submit)="navigator.navigateTo('/inprint')">
+  <form class="form-landing" [formGroup]="emailForm" (submit)="navigator.navigateTo('/register')" appClickOutside>
     <input
       type="email"
       placeholder="Email address"
@@ -13,7 +13,7 @@
     @if (emailControl.dirty && !emailControl.valid) {
       <p class="error-message">Please enter a valid email address.</p>
     }
-    <button class="default" [disabled]="!emailControl.valid"  type="submit" > 
+    <button class="default" [disabled]="!emailControl.valid"  type="submit"> 
       <span>Sign up</span>
       <mat-icon>chevron_right</mat-icon>
     </button>

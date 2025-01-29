@@ -51,6 +51,5 @@ app-header, app-footer{
 }
 
 app-footer{
-  position: absolute;
-  bottom: 0;
+  @include position(absolute, $bottom: 0);
 }

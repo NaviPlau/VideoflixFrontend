@@ -1,0 +1,23 @@
+
+<div class="form-container">
+  <form class="form-login" [formGroup]="registerForm">
+    <h1 class="form-title">Sign up</h1>
+    <div class="formField">
+      <input type="email" placeholder="Email address">
+      <mat-icon>email</mat-icon>
+    </div>
+    <div class="formField">
+      <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Enter a password" formControlName="password"
+        #password>
+      <mat-icon class="visible" (click)="showPassword = !showPassword">{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </div>
+    <div class="formField">
+      <input type="{{ showRepeatedPassword ? 'text' : 'password' }}" placeholder="Confirm password" formControlName="repeated_password"
+        #password>
+      <mat-icon class="visible" (click)="showRepeatedPassword = !showRepeatedPassword">{{ showRepeatedPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </div>
+  </form>
+  <div class="form-footer"> 
+    <button class="default" type="submit" [disabled]="!registerForm.valid">Get started</button>
+  </div>
+</div>

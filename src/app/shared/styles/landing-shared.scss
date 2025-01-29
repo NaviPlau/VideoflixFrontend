@@ -2,9 +2,7 @@
 
 section{
   @include display(flex, column, flex-start, center);
-  position: fixed;
-  top: 0px;
-  left: 50%;
+  @include position(fixed, $top: 0, $left: 50%);
   transform: translateX(-50%);
   height: 100%;
   width: 100%;
@@ -13,9 +11,7 @@ section{
 
 .landing-main-content{
   width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  @include position(absolute, $top: 50%, $left: 50%);
   transform: translate(-50%, -50%);
   @include display(flex, column, center, center);
 }
@@ -25,7 +21,7 @@ section{
   width: 100%;
   @include display(flex, row, center, center);
   gap: 16px;
-  border-radius: 40px;
+  border-radius: 15px;
   border: 1px solid $blue-hover;
   padding: 8px 16px;
 
@@ -56,7 +52,7 @@ section{
   width: 100%;
   @include display(flex, column, center, center);
   gap: 32px;
- 
+  
 }
 
 .form-container{
@@ -115,11 +111,9 @@ strong{
 
     &:after {
       content: "";
-      position: absolute;
+      @include position(absolute, $top: 50%, $left: 50%);
       width: 8px;
       height: 8px;
-      top: 50%;
-      left: 50%;
       transform: translate(-50%, -50%) scale(0);
       background-color: $blue;
       border-radius: 2px;
@@ -132,5 +126,18 @@ strong{
       transform: translate(-50%, -50%) scale(1);
     }
   }
+}
+
+.visible{
+  cursor: pointer;
+}
+
+
+.error-message{
+  width: 100%;
+  text-align: left;
+  color: red;
+  font-size: 12px;
+  @include position(absolute, $top: 100%);
 }
 

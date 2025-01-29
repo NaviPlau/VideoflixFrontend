@@ -8,7 +8,7 @@ import { NavigationService } from '../../shared/services/navigation-service/navi
   selector: 'app-landing-info',
   imports: [MatIcon, ReactiveFormsModule],
   templateUrl: './landing-info.component.html',
-  styleUrl: './landing-info.component.scss'
+  styleUrl: './landing-info.component.scss',
 })
 export class LandingInfoComponent {
   authService = inject(AuthService);

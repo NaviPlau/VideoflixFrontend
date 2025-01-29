@@ -53,8 +53,8 @@ input{
 .error-message {
   color: red;
   font-size: 14px;
+  @include position(absolute, $top: 100%);
   position: absolute;
-  top: 100%;
   width: 100%;
   padding: 0 50px;
 }
