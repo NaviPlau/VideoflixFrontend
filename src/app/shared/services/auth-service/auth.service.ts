@@ -6,6 +6,7 @@ import { RegisterInterface } from '../../interfaces/register-interface';
 })
 export class AuthService {
   landingEmail = signal('');
+  forgotEmail = signal('');
   loginData = signal<LoginInterface>({
     email: '',
     password: ''
@@ -26,6 +27,10 @@ export class AuthService {
   }
 
   register() {
+    
+  }
+
+  sendResetPasswordEmail() {
     
   }
 }

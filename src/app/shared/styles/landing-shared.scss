@@ -68,6 +68,8 @@ section{
 .form-title{
   color: $blue;
   font-size: 48px;
+  text-align: center;
+  line-height: 48px;
 }
 
 .extra-link{
@@ -139,5 +141,11 @@ strong{
   color: red;
   font-size: 12px;
   @include position(absolute, $top: 100%);
+}
+
+
+.p-forgot{
+  text-align: center;
+  font-size: 18px;
 }
 

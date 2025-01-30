@@ -1,0 +1,21 @@
+@use '../../styles/mixins.scss' as *;
+
+.toast-message{
+  width: 100%;
+  @include display(flex, row, flex-start, center);
+  gap: 16px;
+  padding:8px 32px  8px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  @include position(absolute, $bottom: 0, $left: 0);
+  z-index: 9999;
+  max-width: 300px;
+  
+  &.success{
+    background: linear-gradient(to bottom right, rgb(150, 255, 150), rgba(0, 200, 0, 0.24));
+  }
+  &.error{
+    background: linear-gradient(to bottom right, rgba(255, 150, 150, 0.9), rgba(200, 0, 0, 0.9));
+  }
+}

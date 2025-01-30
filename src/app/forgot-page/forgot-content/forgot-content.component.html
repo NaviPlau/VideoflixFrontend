@@ -1,0 +1,24 @@
+<div class="form-container"  >
+  <form class="form-login" [formGroup]="emailForm" (submit)="authService.sendResetPasswordEmail()">
+    <h1 class="form-title">Forgot your password?</h1>
+    <p class="p-forgot" >We will send you an email with instructions to reset your password.</p>
+    <div class="formField">
+      <input
+      type="email"
+      placeholder="Email address"
+      formControlName="email"
+      (input)="updateLandingEmail()"
+    />
+      <mat-icon>email</mat-icon>
+      @if (emailControl.invalid && emailControl.touched) {
+        <p class="error-message">
+          @if (emailControl.hasError('required')) { Email is required. }
+          @if (emailControl.hasError('pattern')) { Please enter a valid email address. }
+        </p>
+      } 
+    </div>
+  </form>
+  <div class="form-footer">
+    <button class="default" type="submit" [disabled]="!emailControl.valid">Send email</button>
+  </div>
+</div>
