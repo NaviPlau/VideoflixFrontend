@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class ToastService {
-  positiveMessage = signal('green');
+  positiveMessage = signal('');
   negativeMessage = signal('');
 
   constructor() {}
@@ -13,14 +13,14 @@ export class ToastService {
     this.positiveMessage.set(message);
     setTimeout(() => {
       this.clearToastMessage();
-    }, 2000);
+    }, 3000);
   }
 
   setNegativeMessage(message: string) {
     this.negativeMessage.set(message);
     setTimeout(() => {
       this.clearToastMessage();
-    }, 2000);
+    }, 3000);
   }
 
   clearToastMessage() {

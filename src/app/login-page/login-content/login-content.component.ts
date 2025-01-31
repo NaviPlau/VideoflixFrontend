@@ -29,6 +29,7 @@ export class LoginContentComponent {
   login(){
     if (this.loginForm.valid){
     this.authService.loginData.set(this.loginForm.value as LoginInterface);
+    this.authService.login();
     console.log(this.authService.loginData());
     }
   }

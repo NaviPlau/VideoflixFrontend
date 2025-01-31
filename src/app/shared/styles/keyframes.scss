@@ -9,3 +9,22 @@
     filter: blur(0);
   }
 }
+
+@keyframes fadeInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-40%, 0%);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(10%, -30%);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(10%, -30%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(10%, -30%);
+  }
+}

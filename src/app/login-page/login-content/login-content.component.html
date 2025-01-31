@@ -1,5 +1,5 @@
 <div class="form-container">
-  <form [formGroup]="loginForm" class="form-login" (submit)="login()">
+  <form [formGroup]="loginForm" class="form-login" (ngSubmit)="login()" #loginFormRef="ngForm">
     <h1 class="form-title">Log in</h1>
     
     <div class="formField">
@@ -32,7 +32,8 @@
       <span class="checkbox"></span>
       Remember me
     </label>
-    <button class="default" [disabled]="!loginForm.valid" type="submit">Log in</button>
+    <button class="default" [disabled]="!loginForm.valid" (click)="loginFormRef.ngSubmit.emit()">Log in</button>
+    <button class="default" (click)="authService.guestLogin()">GuestLogin ></button>
     <strong (click)="navigator.navigateTo('/forgot-password')">Forgot your password?</strong>
     <div class="extra-link">
       <span> New to Videoflix? </span>

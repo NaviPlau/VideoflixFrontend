@@ -1,0 +1,30 @@
+<div class="form-container">
+  <form action="" class="form-login" [formGroup]="resetPasswordForm">
+    <h1 class="form-title">Reset password</h1>
+    <p class="p-forgot">Create a new password for your <span class="app-name">Videoflix </span>account.</p>
+    <div class="formField">
+      <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Enter a password" formControlName="password"
+        #password>
+      <mat-icon class="visible" (click)="showPassword = !showPassword">{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      @if (passwordControl.invalid && passwordControl.touched) {
+        <p class="error-message">
+          @if (passwordControl.hasError('required')) { Password is required. }
+          @if (passwordControl.hasError('pattern')) { Min. 8 letters, 1 uppercase and 1 number. }
+        </p>
+      }
+    </div>
+    <div class="formField">
+      <input type="{{ showRepeatedPassword ? 'text' : 'password' }}" placeholder="Confirm password" formControlName="repeated_password"
+        #password>
+      <mat-icon class="visible" (click)="showRepeatedPassword = !showRepeatedPassword">{{ showRepeatedPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      @if (resetPasswordForm.errors?.['passwordMismatch'] && (resetPasswordForm.dirty || resetPasswordForm.touched)) {
+        <div class="error-message">
+          Passwords do not match.
+        </div>
+      }
+    </div>
+  </form>
+  <div class="form-footer">
+    <button class="default" [disabled]="!resetPasswordForm.valid" type="submit">Reset password</button>
+  </div>
+</div>

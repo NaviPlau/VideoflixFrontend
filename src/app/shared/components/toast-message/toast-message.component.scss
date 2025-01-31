@@ -1,7 +1,9 @@
 @use '../../styles/mixins.scss' as *;
+@use '../../styles/keyframes.scss' as *;
 
 .toast-message{
   width: 100%;
+  animation: fadeInFromLeft 3s ease-in-out infinite;
   @include display(flex, row, flex-start, center);
   gap: 16px;
   padding:8px 32px  8px 16px;
@@ -11,11 +13,16 @@
   @include position(absolute, $bottom: 0, $left: 0);
   z-index: 9999;
   max-width: 300px;
-  
-  &.success{
-    background: linear-gradient(to bottom right, rgb(150, 255, 150), rgba(0, 200, 0, 0.24));
+  background: linear-gradient(to bottom right, $blue-disabled , $blue-hover);
+  mat-icon{
+    width: 30px
   }
-  &.error{
-    background: linear-gradient(to bottom right, rgba(255, 150, 150, 0.9), rgba(200, 0, 0, 0.9));
-  }
+}
+
+.success{
+  color: rgb(80, 248, 37);
+}
+
+.error{
+  color: rgb(248, 80, 80);
 }
