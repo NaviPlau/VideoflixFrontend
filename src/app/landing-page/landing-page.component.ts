@@ -1,9 +1,10 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { BackgroundImageService } from '../shared/services/bg-image-service/background-image.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../shared/components/header/header.component";
 import { LandingInfoComponent } from "./landing-info/landing-info.component";
 import { FooterComponent } from "../shared/components/footer/footer.component";
+import { AuthService } from '../shared/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -13,9 +14,12 @@ import { FooterComponent } from "../shared/components/footer/footer.component";
 })
 export class LandingPageComponent {
   animationClass = 'fade-in';
+  authService = inject(AuthService);
   constructor(
     public backgroundService: BackgroundImageService,
-  ) {}
+  ) {
+    this.authService.rememberedLogin();
+  }
   
  
 

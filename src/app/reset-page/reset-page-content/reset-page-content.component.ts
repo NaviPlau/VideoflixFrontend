@@ -4,6 +4,8 @@ import { NavigationService } from '../../shared/services/navigation-service/navi
 import { AuthService } from '../../shared/services/auth-service/auth.service';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators, ReactiveFormsModule, Form } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { ResetPassword } from '../../shared/interfaces/reset-password';
 
 @Component({
   selector: 'app-reset-page-content',
@@ -16,8 +18,9 @@ export class ResetPageContentComponent {
   navigator = inject(NavigationService);
   showPassword: boolean = false;
   showRepeatedPassword: boolean = false;
-
+  route = inject(ActivatedRoute);
   resetPasswordForm: FormGroup = new FormGroup({});
+  token = this.route.snapshot.paramMap.get('token')!
 
   constructor(private formBuilder: FormBuilder) {
     this.resetPasswordForm = this.formBuilder.group(
@@ -30,15 +33,23 @@ export class ResetPageContentComponent {
   }
 
   passwordMatchValidator(): ValidatorFn {
-      return (control: AbstractControl): ValidationErrors | null => {
-        const password = control.get('password')?.value;
-        const repeatedPassword = control.get('repeated_password')?.value;
-    
-        return password === repeatedPassword ? null : { passwordMismatch: true };
-      };
-    }
+    return (control: AbstractControl): ValidationErrors | null => {
+      const password = control.get('password')?.value;
+      const repeatedPassword = control.get('repeated_password')?.value;
+
+      return password === repeatedPassword ? null : { passwordMismatch: true };
+    };
+  }
 
   get passwordControl() {
-      return this.resetPasswordForm.get('password') as FormControl;
+    return this.resetPasswordForm.get('password') as FormControl;
+  }
+
+  resetPassword() {
+    if (this.resetPasswordForm.valid) {
+      this.authService.resetData.set(this.resetPasswordForm.value as ResetPassword);
+      this.authService.resetToken.set(this.token);
+      this.authService.resetPassword();
     }
+  }
 }

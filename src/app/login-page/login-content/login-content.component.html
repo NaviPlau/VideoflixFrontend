@@ -1,4 +1,4 @@
-<div class="form-container">
+ <div class="form-container">
   <form [formGroup]="loginForm" class="form-login" (ngSubmit)="login()" #loginFormRef="ngForm">
     <h1 class="form-title">Log in</h1>
     
@@ -27,8 +27,8 @@
 
   </form>
   <div class="form-footer">
-    <label for="rememberMe" class="custom-checkbox">
-      <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe"> 
+    <label for="rememberMe" class="custom-checkbox" (click)="setRememberMe()">
+      <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" > 
       <span class="checkbox"></span>
       Remember me
     </label>

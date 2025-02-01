@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'imprint', component: LandingPageComponent },
   { path: 'privacy', component: LandingPageComponent },
   { path: 'forgot-password', component: ForgotPageComponent },
-  { path: 'reset-password', component: ResetPageComponent },
+  { path: 'reset-password/confirm/:token', component: ResetPageComponent },
   { path: 'activate-account/:uid/:token', component: ActivateAccountPageComponent },
   { path: '**', redirectTo: '' }
 ];

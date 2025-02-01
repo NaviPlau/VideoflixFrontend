@@ -1,5 +1,5 @@
 <div class="form-container"  >
-  <form class="form-login" [formGroup]="emailForm" (submit)="authService.sendResetPasswordEmail()">
+  <form class="form-login" [formGroup]="emailForm" #emailFormRef="ngForm" (ngSubmit)="authService.sendResetPasswordEmail()">
     <h1 class="form-title">Forgot your password?</h1>
     <p class="p-forgot" >We will send you an email with instructions to reset your password.</p>
     <div class="formField">
@@ -7,7 +7,7 @@
       type="email"
       placeholder="Email address"
       formControlName="email"
-      (input)="updateLandingEmail()"
+      (input)="updateForgotEmail()"
     />
       <mat-icon>email</mat-icon>
       @if (emailControl.invalid && emailControl.touched) {
@@ -19,6 +19,6 @@
     </div>
   </form>
   <div class="form-footer">
-    <button class="default" type="submit" [disabled]="!emailControl.valid">Send email</button>
+    <button class="default" type="submit" [disabled]="!emailControl.valid" (click)="emailFormRef.ngSubmit.emit()">Send email</button>
   </div>
 </div>

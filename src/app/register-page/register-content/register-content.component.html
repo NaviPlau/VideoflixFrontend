@@ -1,6 +1,6 @@
 
 <div class="form-container">
-  <form class="form-login" [formGroup]="registerForm">
+  <form class="form-login" [formGroup]="registerForm" #registerFormRef="ngForm" (ngSubmit)="register()">
     <h1 class="form-title">Sign up</h1>
     <div class="formField">
       <input type="email" placeholder="Email address" formControlName="email">
@@ -36,6 +36,6 @@
 
   </form>
   <div class="form-footer"> 
-    <button class="default" type="submit" [disabled]="!registerForm.valid">Get started</button>
+    <button class="default" type="submit" [disabled]="!registerForm.valid" (click)="registerFormRef.ngSubmit.emit()">Get started</button>
   </div>
 </div>

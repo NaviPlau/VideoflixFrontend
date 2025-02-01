@@ -1,5 +1,5 @@
 <div class="form-container">
-  <form action="" class="form-login" [formGroup]="resetPasswordForm">
+  <form action="" class="form-login" [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()" #resetPasswordFormRef="ngForm">
     <h1 class="form-title">Reset password</h1>
     <p class="p-forgot">Create a new password for your <span class="app-name">Videoflix </span>account.</p>
     <div class="formField">
@@ -25,6 +25,6 @@
     </div>
   </form>
   <div class="form-footer">
-    <button class="default" [disabled]="!resetPasswordForm.valid" type="submit">Reset password</button>
+    <button class="default" [disabled]="!resetPasswordForm.valid" type="submit" (click)="resetPasswordFormRef.ngSubmit.emit()" >Reset password </button>
   </div>
 </div>

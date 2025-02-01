@@ -23,7 +23,7 @@ export class ForgotContentComponent {
     return this.emailForm.get('email') as FormControl;
   }
 
-  updateLandingEmail() {
+  updateForgotEmail() {
     this.authService.forgotEmail.set(this.emailForm.get('email')?.value || '');
     console.log(this.authService.forgotEmail());
 

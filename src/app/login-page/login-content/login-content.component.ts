@@ -8,7 +8,7 @@ import { NavigationService } from '../../shared/services/navigation-service/navi
 
 @Component({
   selector: 'app-login-content',
-  imports: [MatIcon, CommonModule, ReactiveFormsModule, FormsModule ],
+  imports: [MatIcon, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login-content.component.html',
   styleUrl: './login-content.component.scss'
 })
@@ -26,11 +26,15 @@ export class LoginContentComponent {
     });
   }
 
-  login(){
-    if (this.loginForm.valid){
-    this.authService.loginData.set(this.loginForm.value as LoginInterface);
-    this.authService.login();
-    console.log(this.authService.loginData());
+  login() {
+    if (this.rememberMe) {
+        this.authService.rememberedLogin()
+    } else {
+      if (this.loginForm.valid) {
+        this.authService.loginData.set(this.loginForm.value as LoginInterface);
+        this.authService.login();
+        console.log(this.authService.loginData());
+      }
     }
   }
 
@@ -40,5 +44,9 @@ export class LoginContentComponent {
 
   get passwordControl() {
     return this.loginForm.get('password') as FormControl;
+  }
+
+  setRememberMe() {
+    this.authService.rememberMe.set(this.rememberMe);
   }
 }

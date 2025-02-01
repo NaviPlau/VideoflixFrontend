@@ -37,6 +37,7 @@ export class RegisterContentComponent {
     if (this.registerForm.valid) {
       this.authService.registerData.set(this.registerForm.value as RegisterInterface);
       console.log(this.authService.registerData());
+      this.authService.register();
     }
   }
 

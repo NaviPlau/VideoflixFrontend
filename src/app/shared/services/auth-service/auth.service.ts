@@ -12,9 +12,10 @@ export class AuthService {
   navigator = inject(NavigationService)
   toastService = inject(ToastService)
   httpsService = inject(HttpsService)
-
+  resetToken = signal('')
   landingEmail = signal('');
   forgotEmail = signal('');
+  rememberMe = signal(false);
   loginData = signal<LoginInterface>({
     email: '',
     password: ''
@@ -26,6 +27,8 @@ export class AuthService {
     repeated_password: ''
   });
 
+  resetData = signal({})
+
   
   constructor() { }
 
@@ -35,7 +38,7 @@ export class AuthService {
      .subscribe({
       next: (response) => {
         if (response.token) {
-            sessionStorage.setItem('token', response.token);
+            localStorage.setItem('token', response.token);
             this.toastService.setPositiveMessage('Logged in successfully.');
             this.navigator.navigateTo('/');
           } else {
@@ -48,6 +51,28 @@ export class AuthService {
       }
     });
   }
+
+  rememberedLogin() {
+    let remembertoken = localStorage.getItem('token');
+    if (remembertoken) {
+      this.toastService.setPositiveMessage('Logged in successfully.');
+      this.httpsService.post<{ token: string; message: string }>( `${this.BASE_URL}/remember-login/`, { token: remembertoken })
+      .subscribe({
+        next: (response) => {
+          if (response.token) {
+              this.toastService.setPositiveMessage('Logged in successfully.');
+              this.navigator.navigateTo('/');
+            } else {
+              this.toastService.setNegativeMessage('Invalid login response.');
+          }
+        },
+        error: (error) => {
+          const errorMessage = error.error.message || 'Login failed. Please try again.';
+          this.toastService.setNegativeMessage(errorMessage);
+        }
+      })
+    }
+  }
   
 
   guestLogin() {
@@ -58,10 +83,44 @@ export class AuthService {
   }
 
   register() {
-    
+    this.httpsService.post<{ message: string }>(`${this.BASE_URL}/register/`, this.registerData())
+      .subscribe({
+        next: (response) => {
+          this.toastService.setPositiveMessage(response.message);
+          this.navigator.navigateTo('/login');
+        },
+        error: (error) => {
+          const errorMessage = error.error.message || 'Registration failed. Please try again.';
+          this.toastService.setNegativeMessage(errorMessage);
+        }
+    })
   }
 
   sendResetPasswordEmail() {
-    
+    this.httpsService.post<{ message: string }>(`${this.BASE_URL}/reset-password/`, { email: this.forgotEmail() })
+      .subscribe({
+        next: (response) => {
+          this.toastService.setPositiveMessage(response.message);
+          this.navigator.navigateTo('/login');
+        },
+        error: (error) => {
+          const errorMessage = error.error.error || 'Password reset email failed. Please try again.';
+          this.toastService.setNegativeMessage(errorMessage);
+        }
+      });
   }
+
+  resetPassword() {
+    this.httpsService.post<{ message: string }>(`${this.BASE_URL}/reset-password/confirm/${this.resetToken()}/`, this.resetData())
+      .subscribe({
+        next: (response) => {
+          this.toastService.setPositiveMessage(response.message);
+          this.navigator.navigateTo('/login');
+        },
+        error: (error) => {
+          const errorMessage = error.error.error || 'Password reset email failed. Please try again.';
+          this.toastService.setNegativeMessage(errorMessage);
+        }   
+    })
+  }  
 }
