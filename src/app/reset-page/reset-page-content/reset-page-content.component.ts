@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { NavigationService } from '../../shared/services/navigation-service/navigation.service';
 import { AuthService } from '../../shared/services/auth-service/auth.service';
@@ -13,7 +13,7 @@ import { ResetPassword } from '../../shared/interfaces/reset-password';
   templateUrl: './reset-page-content.component.html',
   styleUrl: './reset-page-content.component.scss'
 })
-export class ResetPageContentComponent {
+export class ResetPageContentComponent implements OnInit {
   authService = inject(AuthService);
   navigator = inject(NavigationService);
   showPassword: boolean = false;
@@ -52,4 +52,8 @@ export class ResetPageContentComponent {
       this.authService.resetPassword();
     }
   }
+
+  ngOnInit() {
+    this.authService.successful.set(false);
+   }
 }

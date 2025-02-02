@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../shared/services/auth-service/auth.service';
@@ -11,7 +11,7 @@ import { NavigationService } from '../../shared/services/navigation-service/navi
   templateUrl: './forgot-content.component.html',
   styleUrl: './forgot-content.component.scss'
 })
-export class ForgotContentComponent {
+export class ForgotContentComponent implements OnInit {
   authService = inject(AuthService);
   navigator = inject(NavigationService);
 
@@ -27,5 +27,9 @@ export class ForgotContentComponent {
     this.authService.forgotEmail.set(this.emailForm.get('email')?.value || '');
     console.log(this.authService.forgotEmail());
 
+  }
+
+  ngOnInit(){
+    this.authService.successful.set(false);
   }
 }

@@ -5,6 +5,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { ForgotPageComponent } from './forgot-page/forgot-page.component';
 import { ResetPageComponent } from './reset-page/reset-page.component';
 import { ActivateAccountPageComponent } from './activate-account-page/activate-account-page.component';
+import { VideosPageComponent } from './videos-page/videos-page.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPageComponent },
   { path: 'reset-password/confirm/:token', component: ResetPageComponent },
   { path: 'activate-account/:uid/:token', component: ActivateAccountPageComponent },
+  { path: 'videos', component: VideosPageComponent },
   { path: '**', redirectTo: '' }
 ];

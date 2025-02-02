@@ -16,6 +16,7 @@ export class AuthService {
   landingEmail = signal('');
   forgotEmail = signal('');
   rememberMe = signal(false);
+  successful = signal(false);
   loginData = signal<LoginInterface>({
     email: '',
     password: ''
@@ -61,7 +62,7 @@ export class AuthService {
         next: (response) => {
           if (response.token) {
               this.toastService.setPositiveMessage('Logged in successfully.');
-              this.navigator.navigateTo('/');
+              this.navigator.navigateTo('/videos');
             } else {
               this.toastService.setNegativeMessage('Invalid login response.');
           }
@@ -76,10 +77,11 @@ export class AuthService {
   
 
   guestLogin() {
-    this.toastService.setPositiveMessage('Logged in as guest');
-    setTimeout(() => {
-      this.navigator.navigateTo('/');
-    }, 3000);
+    this.loginData.set({
+      email: 'videoflix@guest.de',
+      password: 'guest123Guest'
+    })
+    this.login();
   }
 
   register() {
@@ -87,7 +89,7 @@ export class AuthService {
       .subscribe({
         next: (response) => {
           this.toastService.setPositiveMessage(response.message);
-          this.navigator.navigateTo('/login');
+          this.successful.set(true);
         },
         error: (error) => {
           const errorMessage = error.error.message || 'Registration failed. Please try again.';
@@ -99,13 +101,13 @@ export class AuthService {
   sendResetPasswordEmail() {
     this.httpsService.post<{ message: string }>(`${this.BASE_URL}/reset-password/`, { email: this.forgotEmail() })
       .subscribe({
-        next: (response) => {
-          this.toastService.setPositiveMessage(response.message);
-          this.navigator.navigateTo('/login');
+        next: () => {
+          this.successful.set(true);
+          this.forgotEmail.set('');
         },
-        error: (error) => {
-          const errorMessage = error.error.error || 'Password reset email failed. Please try again.';
-          this.toastService.setNegativeMessage(errorMessage);
+        error: () => {
+          this.successful.set(true);
+          this.forgotEmail.set('');
         }
       });
   }
@@ -115,12 +117,17 @@ export class AuthService {
       .subscribe({
         next: (response) => {
           this.toastService.setPositiveMessage(response.message);
-          this.navigator.navigateTo('/login');
+          this.successful.set(true);
         },
         error: (error) => {
           const errorMessage = error.error.error || 'Password reset email failed. Please try again.';
           this.toastService.setNegativeMessage(errorMessage);
         }   
     })
-  }  
+  } 
+
+  logout() { 
+    localStorage.removeItem('token');
+    this.navigator.navigateTo('/login');
+  }
 }

@@ -1,1 +1,12 @@
-<app-activate-content></app-activate-content>
+<div
+  class="background"
+  [ngClass]="backgroundService.animationClass()"
+  [ngStyle]="{ 'background-image': 'url(' + backgroundService.currentBackground() + ')' }">
+</div>
+
+<section>
+  <app-header></app-header>
+  <app-activate-content class="landing-main-content"></app-activate-content>
+  <app-footer class="footer"></app-footer>
+</section>
+

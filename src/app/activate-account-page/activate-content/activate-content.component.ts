@@ -24,7 +24,6 @@ export class ActivateContentComponent {
   ngOnInit(): void {
     const uid = this.route.snapshot.paramMap.get('uid')!;
     const token = this.route.snapshot.paramMap.get('token')!;
-
     this.activateAccount(uid, token);
   }
 

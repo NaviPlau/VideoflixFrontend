@@ -1,0 +1,7 @@
+@use '../shared/styles/mixins.scss' as *;
+
+section{
+  @include display(flex, column, flex-start, center);
+  max-width: 1920px;
+  margin: 0 auto;
+}

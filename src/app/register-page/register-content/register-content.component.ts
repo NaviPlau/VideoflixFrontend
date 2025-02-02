@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavigationService } from '../../shared/services/navigation-service/navigation.service';
 import { AuthService } from '../../shared/services/auth-service/auth.service';
 import { CommonModule } from '@angular/common';
@@ -12,13 +12,17 @@ import { RegisterInterface } from '../../shared/interfaces/register-interface';
   templateUrl: './register-content.component.html',
   styleUrl: './register-content.component.scss'
 })
-export class RegisterContentComponent {
+export class RegisterContentComponent implements OnInit {
   authService = inject(AuthService);
   navigator = inject(NavigationService);
   showPassword: boolean = false;
   showRepeatedPassword: boolean = false;
 
   registerForm: FormGroup = new FormGroup({});
+
+  ngOnInit(){
+    this.authService.successful.set(false);
+  }
 
   constructor(private formBuilder: FormBuilder) {
     console.log(this.authService.landingEmail());
