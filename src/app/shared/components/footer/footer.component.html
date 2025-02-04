@@ -1,4 +1,4 @@
-<footer>
+<footer [ngClass]="{'videoFooter': actualRoute == '/videos'}">
   <strong (click)="navigator.navigateTo('/')">Privacy Policy</strong>
-  <strong (click)="navigator.navigateTo('/')">Imprint</strong>
+  <strong (click)="navigator.navigateTo('/')">Inprint</strong>
 </footer>

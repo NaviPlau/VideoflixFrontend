@@ -17,7 +17,8 @@ export class LoginContentComponent {
   navigator = inject(NavigationService);
   showPassword: boolean = false;
   loginForm: FormGroup = new FormGroup({});
-  rememberMe = false;
+  rememberMe: boolean = false
+  token = localStorage.getItem('token');
 
   constructor(private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
@@ -26,14 +27,17 @@ export class LoginContentComponent {
     });
   }
 
+  ngOnInit() {
+    
+  }
+
   login() {
-    if (this.rememberMe) {
+    if (this.token) {
         this.authService.rememberedLogin()
     } else {
       if (this.loginForm.valid) {
         this.authService.loginData.set(this.loginForm.value as LoginInterface);
         this.authService.login();
-        console.log(this.authService.loginData());
       }
     }
   }
@@ -47,6 +51,9 @@ export class LoginContentComponent {
   }
 
   setRememberMe() {
+    this.rememberMe = !this.rememberMe;
     this.authService.rememberMe.set(this.rememberMe);
+    console.log(this.authService.rememberMe());
+    
   }
 }

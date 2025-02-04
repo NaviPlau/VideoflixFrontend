@@ -2,6 +2,12 @@
 
 section{
   @include display(flex, column, flex-start, center);
+  width: 100%;
+  max-width: 100vw;
+  background-color: #141414;
+  height: 100vh;
+}
+
+app-header, app-footer{
   max-width: 1920px;
-  margin: 0 auto;
 }

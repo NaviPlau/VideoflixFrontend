@@ -39,9 +39,14 @@ export class AuthService {
      .subscribe({
       next: (response) => {
         if (response.token) {
-            localStorage.setItem('token', response.token);
+            if(this.rememberMe()) {
+              localStorage.setItem('token', response.token);
+            }else{
+              sessionStorage.setItem('token', response.token);
+            }
+            
             this.toastService.setPositiveMessage('Logged in successfully.');
-            this.navigator.navigateTo('/');
+            this.navigator.navigateTo('/videos');
           } else {
             this.toastService.setNegativeMessage('Invalid login response.');
         }

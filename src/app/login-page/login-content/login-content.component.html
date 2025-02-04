@@ -27,8 +27,8 @@
 
   </form>
   <div class="form-footer">
-    <label for="rememberMe" class="custom-checkbox" (click)="setRememberMe()">
-      <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" > 
+    <label for="rememberMe" class="custom-checkbox" >
+      <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" (click)="setRememberMe()" > 
       <span class="checkbox"></span>
       Remember me
     </label>

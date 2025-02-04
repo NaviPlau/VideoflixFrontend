@@ -20,3 +20,9 @@ strong{
     scale: 1.02;
   }
 }
+
+
+.videoFooter{
+  @include display(flex, row, flex-end, center);
+  padding: 24px 96px;
+}
