@@ -9,5 +9,5 @@ import { FooterComponent } from "../shared/components/footer/footer.component";
   styleUrl: './videos-page.component.scss'
 })
 export class VideosPageComponent {
-
+  
 }
