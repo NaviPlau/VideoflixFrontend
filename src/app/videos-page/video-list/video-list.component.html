@@ -1,0 +1,13 @@
+<div class="video-list">
+  @for ( video of videoData(); track video) {
+  <div class="video-item" (mouseenter)="onMouseEnter(video.id)" (mouseleave)="onMouseLeave()">
+    @if (hoveredVideoId() === video.id) {
+      <video class="video-preview" #videoPlayer [src]="video.file" autoplay muted
+        (loadedmetadata)="onVideoLoaded(videoPlayer)" (timeupdate)="checkVideoTime(videoPlayer)">
+      </video>
+    } @else {
+        <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+    }
+  </div>
+  }
+</div>

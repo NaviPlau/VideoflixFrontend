@@ -12,7 +12,7 @@ import Hls from 'hls.js';
 })
 export class VideoplayerComponent implements OnInit, AfterViewInit {
   @ViewChild('videoPlayer', { static: true }) videoElement!: ElementRef<HTMLVideoElement>;
-  @Input() videoId: number = 4;
+  @Input() videoId: number = 3;
 
   http = inject(HttpClient);
   availableQualities: { level: number; label: string }[] = [];
