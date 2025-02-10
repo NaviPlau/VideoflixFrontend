@@ -7,8 +7,8 @@
 
 .video-item {
   position: relative;
-  width: 300px;
-  height: 200px;
+  height: 150px;
+  width: 200px;
   overflow: hidden;
 }
 
@@ -23,13 +23,116 @@ img.blurred {
   opacity: 0;
 }
 
-video {
-  position: absolute;
-  top: 0;
-  left: 0;
+
+.genre-list {
+  margin: 20px 0;
+  
+  h2 {
+    font-size: 20px;
+    color: white;
+  }
+}
+
+.video-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  width: 100%;  
+  padding: 10px 0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.video-item {
+  height: 150px;
+  width: 250px;
+  position: relative;
+  min-width: 250px;
+  scroll-snap-align: start;
+  &:hover{
+    width: 300px;
+    min-width: 300px;
+    cursor: pointer;
+
+  }
+}
+ 
+.thumbnail-image {
   width: 100%;
+  min-width: 300px;
   height: 100%;
   object-fit: cover;
-  display: block;
-  z-index: 1;
+}
+
+.video-preview{
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+  object-fit: cover;
+}
+
+
+
+.background-video-container {
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: 70vh; 
+  z-index: 9;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2));
+
+
+  .background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  .overlay-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding-top: 20vh;
+    padding: 20vh 0 0 96px;
+    
+    h1 {
+      font-size: 48px;
+      margin: 0;
+    }
+
+    p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+
+    .play-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  }
+}
+
+.list-container{
+  position: relative;
+  margin-top: -150px;
+  z-index: 999;
+  padding: 0 96px;
 }

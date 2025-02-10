@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
+import { VideoServiceService } from '../../services/video-service/video-service.service';
 
 @Component({
   selector: 'app-videoplayer',
@@ -12,9 +13,8 @@ import Hls from 'hls.js';
 })
 export class VideoplayerComponent implements OnInit, AfterViewInit {
   @ViewChild('videoPlayer', { static: true }) videoElement!: ElementRef<HTMLVideoElement>;
-  @Input() videoId: number = 3;
-
   http = inject(HttpClient);
+  videoService = inject(VideoServiceService);
   availableQualities: { level: number; label: string }[] = [];
   currentQuality: number = -1;
   hls: Hls | null = null;
@@ -28,17 +28,23 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
   isFullscreen: boolean = false;
   controlsHideTimeout: any;
 
-  ngOnInit(): void {
+  constructor() { 
     this.fetchAndPlayVideo();
+  }
+
+  ngOnInit(): void {
     this.setupFullscreenListener();
   }
 
+
   ngAfterViewInit(): void {
     this.setupControlVisibility();
+    
   }
 
   fetchAndPlayVideo(): void {
-    const apiUrl = `http://127.0.0.1:8000/videoflix/api/videos/${this.videoId}/`;
+    if (!this.videoService.currentVideo()) return;
+    const apiUrl = `http://127.0.0.1:8000/videoflix/api/videos/${this.videoService.currentVideo()}/`;
     this.http.get(apiUrl).subscribe((data: any) => {
       if (data.hls_master_playlist_url) {
         this.initHlsPlayer(data.hls_master_playlist_url);

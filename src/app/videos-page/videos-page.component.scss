@@ -5,9 +5,30 @@ section{
   width: 100%;
   max-width: 100vw;
   background-color: #141414;
-  height: 100vh;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 app-header, app-footer{
   max-width: 1920px;
 }
+
+app-footer{
+  position: absolute;
+  bottom: 0;
+}
+
+app-header{
+  z-index: 9999;
+  position: absolute;
+}
+
+
+app-video-list{
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding-bottom: 50px;
+}
+
+
