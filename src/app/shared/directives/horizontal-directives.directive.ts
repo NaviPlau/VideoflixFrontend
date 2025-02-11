@@ -5,14 +5,14 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 })
 export class HorizontalDirectivesDirective {
 
-  private isHovering = false;  // Check if mouse is inside the element
-  private hasOverflow = false; // Check if overflow exists
+  private isHovering = false; 
+  private hasOverflow = false; 
 
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.checkOverflow();  // Check for overflow when mouse enters
+    this.checkOverflow();  
     this.isHovering = true;
   }
 
@@ -23,14 +23,14 @@ export class HorizontalDirectivesDirective {
 
   @HostListener('window:resize')
   onResize() {
-    this.checkOverflow();  // Recheck overflow on window resize
+    this.checkOverflow();  
   }
 
   @HostListener('wheel', ['$event'])
   onScroll(event: WheelEvent) {
     if (this.isHovering && this.hasOverflow) {
-      this.el.nativeElement.scrollLeft += event.deltaY;  // Horizontal scroll
-      event.preventDefault();  // Prevent vertical scrolling
+      this.el.nativeElement.scrollLeft += event.deltaY;  
+      event.preventDefault();  
     }
   }
 
@@ -38,7 +38,7 @@ export class HorizontalDirectivesDirective {
     const element = this.el.nativeElement;
     this.hasOverflow = element.scrollWidth > element.clientWidth;
 
-    // Optionally add or remove a class to indicate overflow state
+    
     if (this.hasOverflow) {
       this.renderer.addClass(element, 'has-overflow');
     } else {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { HorizontalDirectivesDirective } from '../../shared/directives/horizontal-directives.directive';
 import { VideoServiceService } from '../../shared/services/video-service/video-service.service';
+import { HttpsService } from '../../shared/services/https-service/https.service';
 
 @Component({
   selector: 'app-video-list',
@@ -13,25 +14,37 @@ import { VideoServiceService } from '../../shared/services/video-service/video-s
 })
 export class VideoListComponent implements  OnInit{
   videoService = inject(VideoServiceService);
-  private http = inject(HttpClient);
+  http = inject(HttpsService);
   videoData = signal<any[]>([]);
   hoveredVideoId = signal<string | null>(null)
   genres = signal<{ [key: string]: any[] }>({});
   currentBackgroundVideo = signal<any | null>(null);
+  viewedVideos = signal<any[]>([]);
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://127.0.0.1:8000/videoflix/api/videos/')
-      .subscribe(data => this.videoData.set(data));
-      setTimeout(() => {
-        console.log(this.videoData());
+    if (this.videoData().length === 0) { 
+        this.http.get<any[]>('http://127.0.0.1:8000/videoflix/api/videos/')
+        .subscribe(data => {
+            this.videoData.set(data);
+            console.log(this.videoData());
+            this.mapGenres(this.videoData());
+            this.playRandomBackgroundVideo();
+            this.filterIfViewed();
+        });
+    } else {
+        console.log("Using cached video data");  
         this.mapGenres(this.videoData());
-        console.log(this.genres());
         this.playRandomBackgroundVideo();
-        console.log(this.currentBackgroundVideo());
-        
-      }, 2000);
-      
+        this.filterIfViewed();
+    }
+}
+
+  filterIfViewed() {
+    let viewedVideos =  this.videoData().filter(video => video.user_progress !== null);
+    this.viewedVideos.set(viewedVideos);
+    
   }
+  
 
   mapGenres(videos: any[]): void {
     const genreMap: { [key: string]: any[] } = {};

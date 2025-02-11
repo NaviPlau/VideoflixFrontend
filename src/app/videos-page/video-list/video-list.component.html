@@ -1,41 +1,53 @@
 <div class="background-video-container">
   @if(currentBackgroundVideo()) {
-    <video
-      class="background-video"
-      [src]="currentBackgroundVideo().file"
-      autoplay muted
-      (ended)="onBackgroundVideoEnded()">
-    </video>
+  <video class="background-video" [src]="currentBackgroundVideo().file" autoplay muted [muted]="true"
+    [playsInline]="true" (ended)="onBackgroundVideoEnded()">
 
-    <div class="overlay-content">
-      <h1>{{ currentBackgroundVideo().title }}</h1>
-      <p>{{ currentBackgroundVideo().description }}</p>
-      <button class="default">Play</button>
-    </div>
+  </video>
+
+  <div class="overlay-content">
+    <h1>{{ currentBackgroundVideo().title }}</h1>
+    <p>{{ currentBackgroundVideo().description }}</p>
+    <button class="default" (click)="videoService.currentVideo.set(currentBackgroundVideo().id)">Play</button>
+  </div>
   }
 </div>
 
 <div class="list-container">
   @for (genre of getGenreKeys(); track genre) {
-    <div class="genre-list">
-      <h2>{{ genre.charAt(0).toUpperCase() + genre.slice(1) }}</h2>
-      <div class="video-carousel" appHorizontalDirectives>
-        @for (video of genres()[genre]; track video.id) {
-          <div class="video-item" (mouseenter)="onMouseEnter(video.id)" (mouseleave)="onMouseLeave()" (click)="selectVideo(video.id)">
-            @if (hoveredVideoId() === video.id) {
-              <video class="video-preview"
-                     #videoPlayer 
-                     [src]="video.file" 
-                     autoplay muted
-                     (loadedmetadata)="onVideoLoaded(videoPlayer)"
-                     (timeupdate)="checkVideoTime(videoPlayer)">
-              </video>
-            } @else {
-              <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
-            }
-          </div>
+  <div class="genre-list">
+    <h2>{{ genre.charAt(0).toUpperCase() + genre.slice(1) }}</h2>
+    <div class="video-carousel" appHorizontalDirectives>
+      @for (video of genres()[genre]; track video.id) {
+      <div class="video-item" (mouseenter)="onMouseEnter(video.id)" (mouseleave)="onMouseLeave()"
+        (click)="selectVideo(video.id)">
+        @if (hoveredVideoId() === video.id) {
+        <video class="video-preview" #videoPlayer [muted]="true" [playsInline]="true" [src]="video.file" autoplay muted
+          (loadedmetadata)="onVideoLoaded(videoPlayer)" (timeupdate)="checkVideoTime(videoPlayer)">
+        </video>
+        } @else {
+        <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
         }
       </div>
+      }
     </div>
+  </div>
   }
-</div>
+
+  <div class="genre-list">
+    <h2>Already Started</h2>
+    <div class="video-carousel" appHorizontalDirectives>
+      @for(video of viewedVideos(); track video.id) {
+      <div class="video-item" (mouseenter)="onMouseEnter(video.id)" (mouseleave)="onMouseLeave()"
+        (click)="selectVideo(video.id)">
+        @if (hoveredVideoId() === video.id) {
+        <video class="video-preview" #videoPlayer [muted]="true" [playsInline]="true" [src]="video.file" autoplay muted
+          (loadedmetadata)="onVideoLoaded(videoPlayer)" (timeupdate)="checkVideoTime(videoPlayer)">
+        </video>
+        } @else {
+        <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+        }
+      </div>
+      }
+    </div>
+  </div>

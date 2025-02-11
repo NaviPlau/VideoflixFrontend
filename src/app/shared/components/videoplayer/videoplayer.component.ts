@@ -4,16 +4,18 @@ import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild 
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
 import { VideoServiceService } from '../../services/video-service/video-service.service';
+import { MatIcon } from '@angular/material/icon';
+import { HttpsService } from '../../services/https-service/https.service';
 
 @Component({
   selector: 'app-videoplayer',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './videoplayer.component.html',
   styleUrls: ['./videoplayer.component.scss']
 })
 export class VideoplayerComponent implements OnInit, AfterViewInit {
-  @ViewChild('videoPlayer', { static: true }) videoElement!: ElementRef<HTMLVideoElement>;
-  http = inject(HttpClient);
+  @ViewChild('videoPlayerFull', { static: false }) videoElement!: ElementRef<HTMLVideoElement>;
+  http = inject(HttpsService);
   videoService = inject(VideoServiceService);
   availableQualities: { level: number; label: string }[] = [];
   currentQuality: number = -1;
@@ -29,32 +31,34 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
   controlsHideTimeout: any;
 
   constructor() { 
-    this.fetchAndPlayVideo();
+    
   }
 
   ngOnInit(): void {
-    this.setupFullscreenListener();
+    
   }
 
 
   ngAfterViewInit(): void {
     this.setupControlVisibility();
-    
+    this.setupFullscreenListener();
+    this.fetchAndPlayVideo();
   }
 
   fetchAndPlayVideo(): void {
-    if (!this.videoService.currentVideo()) return;
+    if (this.videoService.currentVideo() === null) return;
     const apiUrl = `http://127.0.0.1:8000/videoflix/api/videos/${this.videoService.currentVideo()}/`;
+    
     this.http.get(apiUrl).subscribe((data: any) => {
       if (data.hls_master_playlist_url) {
-        this.initHlsPlayer(data.hls_master_playlist_url);
+        this.initHlsPlayer(data.hls_master_playlist_url, data.user_progress?.last_viewed_position);
       } else {
         console.error('HLS master playlist URL is missing in the response.');
       }
     });
   }
-
-  initHlsPlayer(playlistUrl: string): void {
+  
+  initHlsPlayer(playlistUrl: string, lastViewedPosition?: number): void {
     if (Hls.isSupported()) {
       this.hls = new Hls({
         enableWorker: true,
@@ -62,20 +66,25 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
         abrEwmaSlowLive: 5.0,
         abrMaxWithRealBitrate: true,
       });
-
+  
       this.hls.loadSource(playlistUrl);
       this.hls.attachMedia(this.videoElement.nativeElement);
-
+  
       this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
         this.availableQualities = this.hls?.levels.map((level: any, index: number) => ({
           level: index,
           label: `${level.height}p`,
         })) || [];
+  
+        if (lastViewedPosition && lastViewedPosition > 0) {
+          this.videoElement.nativeElement.currentTime = lastViewedPosition;
+        }
+  
         this.videoElement.nativeElement.play();
         this.isPlaying = true;
         this.isLoading = false;
       });
-
+  
       this.hls.on(Hls.Events.ERROR, (event, data) => {
         if (data.details === 'bufferStalledError') {
           console.warn('Buffer stalled due to low network speed.');
@@ -83,10 +92,20 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
       });
     } else {
       this.videoElement.nativeElement.src = playlistUrl;
+      if (lastViewedPosition && lastViewedPosition > 0) {
+        this.videoElement.nativeElement.currentTime = lastViewedPosition;
+      }
+      this.videoElement.nativeElement.play();
     }
   }
+  
 
   togglePlay(): void {
+    if (!this.videoElement || !this.videoElement.nativeElement) {
+      console.warn('Video element is not available yet.');
+      return;
+    }
+  
     const video = this.videoElement.nativeElement;
     if (video.paused || video.ended) {
       video.play();
@@ -118,7 +137,16 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
   updateProgress(): void {
     const video = this.videoElement.nativeElement;
     this.progress = (video.currentTime / video.duration) * 100;
-  }
+    let adjustedPosition = Math.max(0, video.currentTime - 1);
+    this.videoService.currentProgress.set(adjustedPosition);
+
+    if (video.ended) {
+        setTimeout(() => {
+            video.currentTime = 0;
+            video.play();
+        }, 1000); 
+    }
+}
 
   seek(event: MouseEvent): void {
     const video = this.videoElement.nativeElement;
@@ -175,6 +203,15 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
     this.videoElement.nativeElement.addEventListener('mousemove', () => this.showControls());
   }
 
+  closeVideo(): void {
+    this.videoService.saveUserProgress();
+    this.videoElement.nativeElement.pause();
+    
+    setTimeout(() => {
+      this.videoService.currentVideo.set(null);
+      
+    }, 200);
+  }
 }
 
 

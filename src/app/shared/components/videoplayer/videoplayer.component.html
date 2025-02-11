@@ -1,7 +1,9 @@
-@if(videoService.currentVideo()){
+
   <div class="video-container" (mousemove)="showControls()">
-    <video #videoPlayer width="640" height="360" (click)="togglePlay()"  (timeupdate)="updateProgress()"></video>
-  
+    <video #videoPlayerFull width="640" height="360" (click)="togglePlay()"  (timeupdate)="updateProgress()"></video>
+    <div class="close-button" (click)="closeVideo()">
+        <mat-icon>close</mat-icon>
+    </div>
     
     <div class="custom-controls" [class.visible]="controlsVisible">
       
@@ -19,6 +21,8 @@
         </button>
         <input type="range" min="0" max="1" step="0.01" [(ngModel)]="currentVolume" (input)="changeVolume($event)" class="volume-slider" />
       </div>
+
+      
   
       <div class="progress-bar" (click)="seek($event)">
         <div class="progress" [style.width.%]="progress"></div>
@@ -33,7 +37,6 @@
       <button (click)="toggleFullscreen()">🔳</button>
     </div>
   </div>
-}
 
 
 

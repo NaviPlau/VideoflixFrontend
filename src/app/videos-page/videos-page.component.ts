@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeaderComponent } from "../shared/components/header/header.component";
 import { FooterComponent } from "../shared/components/footer/footer.component";
 import { VideoplayerComponent } from "../shared/components/videoplayer/videoplayer.component";
 import { VideoListComponent } from "./video-list/video-list.component";
+import { VideoServiceService } from '../shared/services/video-service/video-service.service';
 
 @Component({
   selector: 'app-videos-page',
@@ -11,5 +12,5 @@ import { VideoListComponent } from "./video-list/video-list.component";
   styleUrl: './videos-page.component.scss'
 })
 export class VideosPageComponent {
-  
+  videoService = inject(VideoServiceService);
 }

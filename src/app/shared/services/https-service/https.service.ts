@@ -8,17 +8,15 @@ import { Observable } from 'rxjs';
 })
 export class HttpsService {
 
-  private injector = inject(EnvironmentInjector);
-
   constructor(private http: HttpClient) {}
 
-  private getToken(): string | null {
+   getToken(): string | null {
     return sessionStorage.getItem('token') || localStorage.getItem('token');
   }
 
   private getHeaders(): HttpHeaders {
     const token = this.getToken();
-    let headers = new HttpHeaders();
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
     if (token) {
       headers = headers.set('Authorization', `Token ${token}`);
     }
@@ -30,5 +28,14 @@ export class HttpsService {
     return this.http.post<T>(url, body, { headers: this.getHeaders() });
   }
 
+  patch<T>(url: string, body: any): Observable<T> {
+    console.log('PATCH request to:', url, body);
+    return this.http.patch<T>(url, body, { headers: this.getHeaders() });
+  }
+
+  get<T>(url: string): Observable<T> {
+    console.log('GET request to:', url);
+    return this.http.get<T>(url, { headers: this.getHeaders() });
+  }
 
 }
