@@ -19,6 +19,7 @@ export class VideoListComponent implements  OnInit{
   hoveredVideoId = signal<string | null>(null)
   genres = signal<{ [key: string]: any[] }>({});
   currentBackgroundVideo = signal<any | null>(null);
+  startedVideos = signal<any[]>([]);
   viewedVideos = signal<any[]>([]);
 
   ngOnInit(): void {
@@ -29,20 +30,27 @@ export class VideoListComponent implements  OnInit{
             console.log(this.videoData());
             this.mapGenres(this.videoData());
             this.playRandomBackgroundVideo();
-            this.filterIfViewed();
+            this.filterIfStarted();
+            this.filterIfViewved()
         });
     } else {
         console.log("Using cached video data");  
         this.mapGenres(this.videoData());
         this.playRandomBackgroundVideo();
-        this.filterIfViewed();
+        this.filterIfStarted();
+        this.filterIfViewved()
     }
 }
 
-  filterIfViewed() {
-    let viewedVideos =  this.videoData().filter(video => video.user_progress !== null);
-    this.viewedVideos.set(viewedVideos);
+  filterIfStarted() {
+    let startedVideos =  this.videoData().filter(video => video.user_progress !== null && video.user_progress.last_viewed_position != 0);
+    this.startedVideos.set(startedVideos);
     
+  }
+
+  filterIfViewved() {
+    let viewedVideos =  this.videoData().filter(video => video.user_progress !== null && video.user_progress.viewed === true);
+    this.viewedVideos.set(viewedVideos);
   }
   
 

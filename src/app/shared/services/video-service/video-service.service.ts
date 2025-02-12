@@ -11,19 +11,23 @@ export class VideoServiceService {
   authService = inject(AuthService)
   http= inject(HttpsService)
   currentProgress = signal<number>(0)
+  videoDuration = signal<number>(0)
   constructor() { }
 
 
   saveUserProgress(): void {
-    const apiUrl = `http://127.0.0.1:8000/videoflix/api/video/${this.currentVideo()}/progress/`;
-
-    this.http.patch(apiUrl, {
-        last_viewed_position: this.currentProgress(),
-        viewed: true
-    }).subscribe(
-        response => console.log('Success:', response),
-        error => console.error('Error:', error)
+    let apiUrl = `http://127.0.0.1:8000/videoflix/api/video/${this.currentVideo()}/progress/`;
+  
+    let isFullyWatched = this.currentProgress() >= this.videoDuration() -2;
+    let payload = {
+      last_viewed_position: isFullyWatched ? 0 : this.currentProgress(),
+      viewed: isFullyWatched
+    };
+  
+    this.http.patch(apiUrl, payload).subscribe(
+      response => console.log('Success:', response),
+      error => console.error('Error:', error)
     );
-}
+  }
 
 }

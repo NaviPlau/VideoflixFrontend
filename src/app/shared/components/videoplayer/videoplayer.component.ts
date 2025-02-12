@@ -139,12 +139,12 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
     this.progress = (video.currentTime / video.duration) * 100;
     let adjustedPosition = Math.max(0, video.currentTime - 1);
     this.videoService.currentProgress.set(adjustedPosition);
-
+    this.videoService.videoDuration.set(video.duration);
     if (video.ended) {
         setTimeout(() => {
             video.currentTime = 0;
             video.play();
-        }, 1000); 
+        }, 5000); 
     }
 }
 
