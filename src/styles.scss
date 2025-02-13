@@ -53,3 +53,7 @@ app-header, app-footer, app-video-list{
 app-footer{
   @include position(absolute, $bottom: 0);
 }
+
+.no-scroll{
+  overflow: hidden;
+}

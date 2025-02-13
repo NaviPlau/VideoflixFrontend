@@ -13,7 +13,7 @@ import { HttpsService } from '../../services/https-service/https.service';
   templateUrl: './videoplayer.component.html',
   styleUrls: ['./videoplayer.component.scss']
 })
-export class VideoplayerComponent implements OnInit, AfterViewInit {
+export class VideoplayerComponent implements AfterViewInit {
   @ViewChild('videoPlayerFull', { static: false }) videoElement!: ElementRef<HTMLVideoElement>;
   http = inject(HttpsService);
   videoService = inject(VideoServiceService);
@@ -33,11 +33,6 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
   constructor() { 
     
   }
-
-  ngOnInit(): void {
-    
-  }
-
 
   ngAfterViewInit(): void {
     this.setupControlVisibility();
@@ -75,6 +70,11 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
           level: index,
           label: `${level.height}p`,
         })) || [];
+  
+       if(this.hls){
+        this.hls.nextLevel = -1; 
+       }
+       
   
         if (lastViewedPosition && lastViewedPosition > 0) {
           this.videoElement.nativeElement.currentTime = lastViewedPosition;
@@ -141,10 +141,7 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
     this.videoService.currentProgress.set(adjustedPosition);
     this.videoService.videoDuration.set(video.duration);
     if (video.ended) {
-        setTimeout(() => {
-            video.currentTime = 0;
-            video.play();
-        }, 5000); 
+        this.videoService.saveUserProgress();
     }
 }
 
@@ -209,7 +206,9 @@ export class VideoplayerComponent implements OnInit, AfterViewInit {
     
     setTimeout(() => {
       this.videoService.currentVideo.set(null);
-      
+      this.videoService.filterIfStarted();
+      this.videoService.filterIfViewved();
+      document.body.classList.remove('no-scroll');
     }, 200);
   }
 }

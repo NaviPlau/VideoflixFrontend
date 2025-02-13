@@ -4,10 +4,11 @@ import { FooterComponent } from "../shared/components/footer/footer.component";
 import { VideoplayerComponent } from "../shared/components/videoplayer/videoplayer.component";
 import { VideoListComponent } from "./video-list/video-list.component";
 import { VideoServiceService } from '../shared/services/video-service/video-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-videos-page',
-  imports: [HeaderComponent, FooterComponent, VideoplayerComponent, VideoListComponent],
+  imports: [HeaderComponent, FooterComponent, VideoplayerComponent, VideoListComponent, CommonModule],
   templateUrl: './videos-page.component.html',
   styleUrl: './videos-page.component.scss'
 })
