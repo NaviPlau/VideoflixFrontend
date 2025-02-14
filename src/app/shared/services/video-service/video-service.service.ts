@@ -33,20 +33,27 @@ export class VideoServiceService {
           this.mapGenres(this.videoData());
           this.playRandomBackgroundVideo();
           this.filterIfStarted();
-          this.filterIfViewved()
+          this.filterIfViewed()
       });
   }
 
 
-  filterIfStarted() {
-    let startedVideos =  this.videoData().filter(video => video.user_progress !== null && video.user_progress.last_viewed_position != 0 && video.user_progress.viewed === false);
+  filterIfStarted(): void {
+    let startedVideos = this.videoData().filter(video =>
+      video.user_progress &&
+      video.user_progress.last_viewed_position > 0 &&
+      video.user_progress.viewed === false
+    );
     this.startedVideos.set(startedVideos);
-    
+    console.log('Started Videos:', startedVideos);
   }
 
-  filterIfViewved() {
-    let viewedVideos =  this.videoData().filter(video => video.user_progress !== null && video.user_progress.viewed === true);
+  filterIfViewed(): void {
+    let viewedVideos = this.videoData().filter(video =>
+      video.user_progress && video.user_progress.viewed === true
+    );
     this.viewedVideos.set(viewedVideos);
+    console.log('Viewed Videos:', viewedVideos);
   }
   
 
@@ -65,11 +72,9 @@ export class VideoServiceService {
   onMouseEnter(videoId: string, listType: string): void {
     const uniqueKey = `${videoId}-${listType}`;
     if (this.hoveredVideoId() === uniqueKey) return;
-
-    // Start a timeout to delay video preview
     this.hoverTimeout = setTimeout(() => {
         this.hoveredVideoId.set(uniqueKey);
-    }, 500); // Adjust delay (500ms = 0.5 seconds)
+    }, 500);
 }
   
 
@@ -112,25 +117,27 @@ onMouseLeave(): void {
 
   selectVideo(videoId: number): void {
     this.currentVideo.set(videoId);
-    console.log(this.currentVideo());
     document.body.classList.add('no-scroll');
   }
 
 
   saveUserProgress(): void {
+    if (!this.currentVideo()) return;
+
     let apiUrl = `http://127.0.0.1:8000/videoflix/api/video/${this.currentVideo()}/progress/`;
-  
-    let isFullyWatched = this.currentProgress() >= this.videoDuration() -2;
+
+    let isFullyWatched = this.currentProgress() >= this.videoDuration() - 2;
     let payload = {
       last_viewed_position: isFullyWatched ? 0 : this.currentProgress(),
       viewed: isFullyWatched
     };
-  
+
     this.http.patch(apiUrl, payload).subscribe(
-      response => console.log('Success:', response),
-      error => console.error('Error:', error)
+      response => {
+        this.getVideoData(); 
+      },
+      error => console.error('Error saving progress:', error)
     );
-    this.getVideoData();
   }
 
   onTouchStart(videoId: string, listType: string): void {

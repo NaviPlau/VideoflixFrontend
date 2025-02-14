@@ -53,7 +53,5 @@ export class LoginContentComponent {
   setRememberMe() {
     this.rememberMe = !this.rememberMe;
     this.authService.rememberMe.set(this.rememberMe);
-    console.log(this.authService.rememberMe());
-    
   }
 }

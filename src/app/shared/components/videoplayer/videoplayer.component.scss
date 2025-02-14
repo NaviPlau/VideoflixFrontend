@@ -100,3 +100,49 @@
   color: $blue;
   cursor: pointer;
 }
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  z-index: 10;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .overlay-buttons {
+    display: flex;
+    gap: 20px;
+
+    button {
+      background: $blue;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: $blue-disabled;
+      }
+    }
+  }
+}

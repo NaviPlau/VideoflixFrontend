@@ -26,7 +26,5 @@ export class LandingInfoComponent {
 
   updateLandingEmail() {
     this.authService.landingEmail.set(this.emailForm.get('email')?.value || '');
-    console.log(this.authService.landingEmail());
-    
   }
 }

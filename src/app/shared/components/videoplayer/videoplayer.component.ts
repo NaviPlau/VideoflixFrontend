@@ -20,7 +20,7 @@ export class VideoplayerComponent implements AfterViewInit {
   availableQualities: { level: number; label: string }[] = [];
   currentQuality: number = -1;
   hls: Hls | null = null;
-
+  showOverlay: boolean = true;
   isLoading: boolean = true;
   isPlaying: boolean = false;
   isMuted: boolean = false;
@@ -29,6 +29,8 @@ export class VideoplayerComponent implements AfterViewInit {
   controlsVisible: boolean = true;
   isFullscreen: boolean = false;
   controlsHideTimeout: any;
+  currentVideoData: any = null;
+  videoEnded: boolean = false;
 
   constructor() { 
     
@@ -46,6 +48,7 @@ export class VideoplayerComponent implements AfterViewInit {
     
     this.http.get(apiUrl).subscribe((data: any) => {
       if (data.hls_master_playlist_url) {
+        this.currentVideoData = data;
         this.initHlsPlayer(data.hls_master_playlist_url, data.user_progress?.last_viewed_position);
       } else {
         console.error('HLS master playlist URL is missing in the response.');
@@ -79,8 +82,6 @@ export class VideoplayerComponent implements AfterViewInit {
         if (lastViewedPosition && lastViewedPosition > 0) {
           this.videoElement.nativeElement.currentTime = lastViewedPosition;
         }
-  
-        this.videoElement.nativeElement.play();
         this.isPlaying = true;
         this.isLoading = false;
       });
@@ -95,7 +96,6 @@ export class VideoplayerComponent implements AfterViewInit {
       if (lastViewedPosition && lastViewedPosition > 0) {
         this.videoElement.nativeElement.currentTime = lastViewedPosition;
       }
-      this.videoElement.nativeElement.play();
     }
   }
   
@@ -110,8 +110,13 @@ export class VideoplayerComponent implements AfterViewInit {
     if (video.paused || video.ended) {
       video.play();
       this.isPlaying = true;
-    } else {
+      this.showOverlay = false;
+    } else if(video.ended) {
+      this.isPlaying = false;
+      this.showOverlay = true
+    }else{
       video.pause();
+      this.showOverlay = true;
       this.isPlaying = false;
     }
   }
@@ -140,9 +145,14 @@ export class VideoplayerComponent implements AfterViewInit {
     let adjustedPosition = Math.max(0, video.currentTime - 1);
     this.videoService.currentProgress.set(adjustedPosition);
     this.videoService.videoDuration.set(video.duration);
-    if (video.ended) {
-        this.videoService.saveUserProgress();
+    if(video.ended){
+      this.videoService.saveUserProgress();
+      this.showOverlay = true;
+      this.videoEnded = true;
+      
     }
+    
+    
 }
 
   seek(event: MouseEvent): void {
@@ -150,7 +160,6 @@ export class VideoplayerComponent implements AfterViewInit {
     const progressBar = event.currentTarget as HTMLElement;
     const clickPosition = event.offsetX / progressBar.clientWidth;
     video.currentTime = clickPosition * video.duration;
-    this.updateProgress();
   }
 
   changeQuality(event: Event): void {
@@ -207,9 +216,16 @@ export class VideoplayerComponent implements AfterViewInit {
     setTimeout(() => {
       this.videoService.currentVideo.set(null);
       this.videoService.filterIfStarted();
-      this.videoService.filterIfViewved();
+      this.videoService.filterIfViewed();
       document.body.classList.remove('no-scroll');
     }, 200);
+  }
+
+
+  startVideo(): void {
+    this.showOverlay = false;
+    this.videoElement.nativeElement.play();
+    this.isPlaying = true;
   }
 }
 

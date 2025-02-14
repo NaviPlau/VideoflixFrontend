@@ -1,3 +1,4 @@
+@use '../../shared/styles/mixins.scss' as *;
 .video-list{
   width: 100%;
   display: flex;
@@ -136,4 +137,21 @@ img.blurred {
   margin-top: -150px;
   z-index: 999;
   padding: 0 96px;
+}
+
+
+.video-preview-thumbnail{
+  position: relative;
+}
+
+.video-title-thumbnail{
+  position: absolute;
+  background-color: $blue;
+  top: 0;
+  color: white;
+  margin: 10px;
+  padding: 4px 8px;
+  @include display(flex, row, center, center);
+  border-radius: 10px;
+  @include elipsis(1);
 }

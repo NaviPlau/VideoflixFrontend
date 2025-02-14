@@ -48,7 +48,7 @@
     </form>
     @if(!authService.successful()){
       <div class="form-footer">
-        <button class="default" type="submit" [disabled]="!registerForm.valid" (click)="registerFormRef.ngSubmit.emit()">Get
+        <button class="default" type="submit" [disabled]="!registerForm.valid || authService.sending()" (click)="registerFormRef.ngSubmit.emit()">Get
           started</button>
       </div>
     }

@@ -25,8 +25,6 @@ export class RegisterContentComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder) {
-    console.log(this.authService.landingEmail());
-    
     this.registerForm = this.formBuilder.group(
       {
         email: [this.authService.landingEmail(), [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)]],
@@ -40,7 +38,6 @@ export class RegisterContentComponent implements OnInit {
   register() {
     if (this.registerForm.valid) {
       this.authService.registerData.set(this.registerForm.value as RegisterInterface);
-      console.log(this.authService.registerData());
       this.authService.register();
     }
   }

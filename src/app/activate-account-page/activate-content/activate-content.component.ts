@@ -21,15 +21,23 @@ export class ActivateContentComponent {
     private router: Router
   ) {}
 
+  /**
+   * It gets the 'uid' and 'token' parameters from the route and calls the activateAccount method
+   * with them.
+   */
   ngOnInit(): void {
     const uid = this.route.snapshot.paramMap.get('uid')!;
     const token = this.route.snapshot.paramMap.get('token')!;
     this.activateAccount(uid, token);
   }
 
+  /**
+   * Sends a GET request to the server to activate an account.
+   * If the request is successful, it sets the `success` message and navigates to the login page
+   * after a 3 second delay. If the request is unsuccessful, it sets the `error` message.
+   */
   activateAccount(uid: string, token: string): void {
-    this.http
-      .get<{ message: string }>(`http://127.0.0.1:8000/videoflix/api/activate/${uid}/${token}/`)
+    this.http.get<{ message: string }>(`http://127.0.0.1:8000/videoflix/api/activate/${uid}/${token}/`)
       .subscribe({
         next: (response) => {
           this.success = response.message;

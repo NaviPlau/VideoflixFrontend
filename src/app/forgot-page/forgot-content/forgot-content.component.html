@@ -25,7 +25,7 @@
   </form>
   <div class="form-footer">
     @if(!authService.successful()){
-      <button class="default" type="submit" [disabled]="!emailControl.valid" (click)="emailFormRef.ngSubmit.emit()">Send
+      <button class="default" type="submit" [disabled]="!emailControl.valid || authService.sending()" (click)="emailFormRef.ngSubmit.emit()">Send
         email</button>
     }
     @if(authService.successful()){

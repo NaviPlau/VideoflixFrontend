@@ -17,6 +17,7 @@ export class AuthService {
   forgotEmail = signal('');
   rememberMe = signal(false);
   successful = signal(false);
+  sending = signal<boolean>(false)
   loginData = signal<LoginInterface>({
     email: '',
     password: ''
@@ -35,6 +36,7 @@ export class AuthService {
 
 
   login() {
+    this.sending.set(true);
     this.httpsService.post<{ token: string; message: string }>( `${this.BASE_URL}/login/`, this.loginData())
      .subscribe({
       next: (response) => {
@@ -44,16 +46,18 @@ export class AuthService {
             }else{
               sessionStorage.setItem('token', response.token);
             }
-            
+            this.sending.set(false);
             this.toastService.setPositiveMessage('Logged in successfully.');
             this.navigator.navigateTo('/videos');
           } else {
             this.toastService.setNegativeMessage('Invalid login response.');
+            this.sending.set(false);
         }
       },
       error: (error) => {
         const errorMessage = error.error.message || 'Login failed. Please try again.';
         this.toastService.setNegativeMessage(errorMessage);
+        this.sending.set(false);
       }
     });
   }
@@ -61,20 +65,23 @@ export class AuthService {
   rememberedLogin() {
     let remembertoken = localStorage.getItem('token');
     if (remembertoken) {
-      this.toastService.setPositiveMessage('Logged in successfully.');
+      this.sending.set(true);
       this.httpsService.post<{ token: string; message: string }>( `${this.BASE_URL}/remember-login/`, { token: remembertoken })
       .subscribe({
         next: (response) => {
           if (response.token) {
               this.toastService.setPositiveMessage('Logged in successfully.');
               this.navigator.navigateTo('/videos');
+              this.sending.set(false);
             } else {
               this.toastService.setNegativeMessage('Invalid login response.');
+              this.sending.set(false);
           }
         },
         error: (error) => {
           const errorMessage = error.error.message || 'Login failed. Please try again.';
           this.toastService.setNegativeMessage(errorMessage);
+          this.sending.set(false);
         }
       })
     }
@@ -83,50 +90,61 @@ export class AuthService {
 
   guestLogin() {
     this.loginData.set({
-      email: 'videoflix@guest.de',
+      email: 'guest@videoflix.paul-ivan.com',
       password: 'guest123Guest'
     })
     this.login();
   }
 
   register() {
+    this.sending.set(true);
     this.httpsService.post<{ message: string }>(`${this.BASE_URL}/register/`, this.registerData())
       .subscribe({
         next: (response) => {
           this.toastService.setPositiveMessage(response.message);
           this.successful.set(true);
+          this.sending.set(false);
         },
         error: (error) => {
           const errorMessage = error.error.message || 'Registration failed. Please try again.';
           this.toastService.setNegativeMessage(errorMessage);
+          this.sending.set(false);
         }
     })
   }
 
   sendResetPasswordEmail() {
+    this.sending.set(true);
     this.httpsService.post<{ message: string }>(`${this.BASE_URL}/reset-password/`, { email: this.forgotEmail() })
       .subscribe({
         next: () => {
+          this.sending.set(false);
           this.successful.set(true);
           this.forgotEmail.set('');
         },
         error: () => {
           this.successful.set(true);
           this.forgotEmail.set('');
+          this.sending.set(false);
         }
       });
   }
 
   resetPassword() {
+    this.sending.set(true);
     this.httpsService.post<{ message: string }>(`${this.BASE_URL}/reset-password/confirm/${this.resetToken()}/`, this.resetData())
       .subscribe({
         next: (response) => {
           this.toastService.setPositiveMessage(response.message);
           this.successful.set(true);
+          this.resetToken.set('');
+          this.resetData.set({});
+          this.sending.set(false);
         },
         error: (error) => {
           const errorMessage = error.error.error || 'Password reset email failed. Please try again.';
           this.toastService.setNegativeMessage(errorMessage);
+          this.sending.set(false);
         }   
     })
   } 

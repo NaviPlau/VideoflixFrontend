@@ -25,8 +25,6 @@ export class ForgotContentComponent implements OnInit {
 
   updateForgotEmail() {
     this.authService.forgotEmail.set(this.emailForm.get('email')?.value || '');
-    console.log(this.authService.forgotEmail());
-
   }
 
   ngOnInit(){

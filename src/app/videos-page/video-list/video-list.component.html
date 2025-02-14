@@ -8,7 +8,6 @@
       [playsInline]="true" (ended)="videoService.onBackgroundVideoEnded()" play="videoService.currentVideo() !=null">
 
     </video>
-
   <div class="overlay-content">
     <h1>{{ videoService.currentBackgroundVideo().title }}</h1>
     <p>{{ videoService.currentBackgroundVideo().description }}</p>
@@ -36,7 +35,10 @@
         (timeupdate)="videoService.checkVideoTime(videoPlayer)">
       </video>
     } @else {
-      <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+      <div class="video-preview-thumbnail">
+        <span class="video-title-thumbnail">{{video.title}}</span>
+        <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+      </div>
     }
   </div>
       }
@@ -63,7 +65,10 @@
             (timeupdate)="videoService.checkVideoTime(videoPlayer)">
           </video>
         } @else {
-          <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+          <div class="video-preview-thumbnail">
+            <span class="video-title-thumbnail">{{video.title}}</span>
+            <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+          </div>
         }
       </div>
 
@@ -71,7 +76,6 @@
     </div>
   </div>
 }
-
 
 @if(videoService.startedVideos().length > 0) {
   <div class="genre-list">
@@ -91,7 +95,10 @@
          (timeupdate)="videoService.checkVideoTime(videoPlayer)">
        </video>
      } @else {
-       <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+      <div class="video-preview-thumbnail">
+        <span class="video-title-thumbnail">{{video.title}}</span>
+        <img class="thumbnail-image" [src]="video.thumbnail" [alt]="video.title" />
+      </div>
      }
    </div>
       }
