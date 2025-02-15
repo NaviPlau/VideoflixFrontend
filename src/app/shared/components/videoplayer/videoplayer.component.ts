@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Hls from 'hls.js';
 import { VideoServiceService } from '../../services/video-service/video-service.service';
 import { MatIcon } from '@angular/material/icon';
 import { HttpsService } from '../../services/https-service/https.service';
+import { InactivityService } from '../../services/inactivity-service/inactivity.service';
 
 @Component({
   selector: 'app-videoplayer',
@@ -32,6 +32,7 @@ export class VideoplayerComponent implements AfterViewInit {
   currentVideoData: any = null;
   videoEnded: boolean = false;
   video!: HTMLVideoElement
+  inactivityService = inject(InactivityService);
 
   /**
    * Called after the view has been initialized.
@@ -201,6 +202,7 @@ export class VideoplayerComponent implements AfterViewInit {
     let adjustedPosition = Math.max(0, video.currentTime - 1);
     this.videoService.currentProgress.set(adjustedPosition);
     this.videoService.videoDuration.set(video.duration);
+    this.inactivityService.resetInactivityTimer();
     if (video.ended) {
       this.videoService.saveUserProgress();
       this.showOverlay = true;
