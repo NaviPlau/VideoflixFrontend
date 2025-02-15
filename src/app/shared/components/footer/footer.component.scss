@@ -8,6 +8,9 @@ footer{
   @include display(flex, row, center, center);
   gap: 32px;
   padding: 24px 48px;
+  @media (max-width:420px){
+    gap: 16px;
+  }
 }
 
 strong{
@@ -34,8 +37,22 @@ strong{
   }
 }
 
+.extra-link{
+  @include display(flex, column, center, center);
+}
 
 .videoFooter{
-  @include display(flex, row, flex-end, center);
+  @include display(flex, row, center, center);
   padding: 24px 96px;
+  @media (max-width:1000px){
+    padding: 24px 20px;
+  }
+  @media (max-width:420px){
+    @include display(flex, column, center, center);
+    .extra-link{
+      @include display(flex, row, center, center);
+      gap: 12px;
+    }
+  }
+  
 }

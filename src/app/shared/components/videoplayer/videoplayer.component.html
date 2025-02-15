@@ -9,7 +9,7 @@
       <div class="overlay-buttons">
         <button (click)="startVideo()">
           @if (currentVideoData?.user_progress?.last_viewed_position != 0 &&currentVideoData?.user_progress != null || !videoEnded) {
-            ▶ Continue Watching
+            ▶ Continue
           } @else if (currentVideoData?.user_progress?.viewed || videoEnded) {
             🔄 Replay
           } @else if(currentVideoData?.user_progress === null || currentVideoData?.user_progress?.last_viewed_position === 0 || !videoEnded) {

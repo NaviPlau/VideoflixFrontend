@@ -1,7 +1,7 @@
 <div class="form-container" [ngClass]="{'successful': authService.successful()}">
   <form action="" class="form-login" [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()"
     #resetPasswordFormRef="ngForm">
-    <h1 class="form-title">Reset password</h1>
+    <h1 class="form-title title-mobile">Reset password</h1>
     @if(!authService.successful()){
 
 

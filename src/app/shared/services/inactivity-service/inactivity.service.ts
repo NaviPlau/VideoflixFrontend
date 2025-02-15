@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class InactivityService {
   firstView = true;
   inactivityTimer: any;
-  inactivityTimeout = 20000;
+  inactivityTimeout = 600000;
 
   /**
    * The constructor of the InactivityService.

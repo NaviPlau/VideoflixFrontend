@@ -80,7 +80,6 @@ img.blurred {
   position: relative;
   top: 0;
   width: 100%;
-  height: 70vh; 
   z-index: 9;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
@@ -107,8 +106,11 @@ img.blurred {
     position: relative;
     z-index: 1;
     color: white;
-    padding-top: 20vh;
-    padding: 20vh 0 0 96px;
+    padding: 20vh 0 50px 96px;
+
+    @media (max-width:1000px){
+      padding: 100px 0 0 20px;
+    }
     
     h1 {
       font-size: 48px;
@@ -134,9 +136,11 @@ img.blurred {
 
 .list-container{
   position: relative;
-  margin-top: -150px;
   z-index: 999;
-  padding: 0 96px 40px 96px;
+  padding: 0px 96px 40px 96px;
+  @media (max-width:1000px){
+    padding: 0 20px 40px 20px;
+  }
 }
 
 

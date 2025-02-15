@@ -12,6 +12,10 @@ h1{
   gap: 16px;
   padding: 0 50px;
   position: relative;
+  @media (max-width:750px){
+    flex-direction: column;
+    padding: 0 20px;
+  }
 }
 
 span{

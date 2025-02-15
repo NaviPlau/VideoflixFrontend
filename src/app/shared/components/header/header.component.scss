@@ -5,6 +5,10 @@ header{
   @include display(flex, row, space-between, center);
   height: 108px;
   padding: 0 96px;
+  @media (max-width:750px){
+    padding: 0 20px;
+    height: 72px;
+  }
 }
 
 img{

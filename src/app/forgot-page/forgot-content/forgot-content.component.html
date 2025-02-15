@@ -3,7 +3,7 @@
     (ngSubmit)="authService.sendResetPasswordEmail()">
     
     @if(!authService.successful()){
-      <h1 class="form-title">Forgot your password?</h1>
+      <h1 class="form-title title-mobile">Forgot your password?</h1>
       <p class="p-forgot">We will send you an email with instructions to reset your password.</p>
       <div class="formField">
         <input type="email" placeholder="Email address" formControlName="email" (input)="updateForgotEmail()" />
@@ -16,7 +16,7 @@
         }
       </div>
     }@else{
-      <h1 class="form-title">Email sent</h1>
+      <h1 class="form-title title-mobile">Email sent</h1>
       <p class="p-forgot">Please check your <strong>email</strong>. 
         If you don't see the <strong>email</strong>, please check your <strong>spam</strong> folder.
         If you still cant find the <strong>email</strong>, please try again.

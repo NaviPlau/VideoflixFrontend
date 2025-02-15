@@ -18,4 +18,7 @@ export class VideosPageComponent {
   videoService = inject(VideoServiceService);
   inactivityService = inject(InactivityService);
  
+    constructor() {
+      this.inactivityService.firstView = true;
+    }
 }

@@ -1,0 +1,12 @@
+@use '../../shared/styles/landing-shared.scss' as *;
+@use '../../shared/styles/mixins.scss' as *;
+
+
+.form-container{
+  max-height: 80vh;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  justify-content: flex-start;
+  gap: 16px;
+}

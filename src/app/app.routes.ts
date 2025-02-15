@@ -7,13 +7,15 @@ import { ResetPageComponent } from './reset-page/reset-page.component';
 import { ActivateAccountPageComponent } from './activate-account-page/activate-account-page.component';
 import { VideosPageComponent } from './videos-page/videos-page.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { ImprintPageComponent } from './imprint-page/imprint-page.component';
+import { PrivacyPageComponent } from './privacy-page/privacy-page.component';
 
 export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'imprint', component: LandingPageComponent },
-  { path: 'privacy', component: LandingPageComponent },
+  { path: 'imprint', component: ImprintPageComponent },
+  { path: 'privacy-policy', component: PrivacyPageComponent },
   { path: 'forgot-password', component: ForgotPageComponent },
   { path: 'reset-password/confirm/:token', component: ResetPageComponent },
   { path: 'activate-account/:uid/:token', component: ActivateAccountPageComponent },

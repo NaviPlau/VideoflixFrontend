@@ -10,11 +10,14 @@
 }
 
 .background{
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  height: 100%;
   max-width: 100vw;
   background-size: cover;
   background-position: center;
+  @include position(fixed, $top: 0, $left: 0, $right: 0, $bottom: 0);
+  z-index: -1;
   @include display(flex, column, flex-start, center);
 }
 
@@ -50,9 +53,7 @@ app-header, app-footer, app-video-list{
   width: 100%;
 }
 
-app-footer{
-  @include position(absolute, $bottom: 0);
-}
+
 
 .no-scroll{
   overflow: hidden;

@@ -1,6 +1,10 @@
 <header>
   @if( actualRoute != "/videos" && actualRoute != "/imprint" && actualRoute != "/privacy-policy"){
-    <img (click)="navigator.navigateTo('/')"   src="shared/images/logo-long.webp" alt="">
+    @if(isWideScreen){
+      <img (click)="navigator.navigateTo('/')"   src="shared/images/logo-long.webp" alt="">
+    }@else {
+      <img (click)="navigator.navigateTo('/')" class="logo-short"  src="shared/images/logo-short.webp" alt="">
+    }
   }@else{
     <img (click)="navigator.goBack()" class="logo-short"  src="shared/images/logo-short.webp" alt="">
   }

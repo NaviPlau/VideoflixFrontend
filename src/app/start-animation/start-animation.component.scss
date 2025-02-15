@@ -11,6 +11,11 @@
   background-color: $blue;
   padding: 8px 16px;
   border-radius: 20px;
+  width: 100%;
+  text-align: center;
+  @media (max-width: 600px){
+    font-size: 24px;
+  }
 }
 
 .wrapper {

@@ -49,7 +49,6 @@ export class AuthService {
     if (response.token) {
       this.settokentostorage(response);
       this.sending.set(false);
-      this.toastService.setPositiveMessage('Logged in successfully.');
       this.navigator.navigateTo('/videos');
     }
   }
@@ -106,7 +105,6 @@ export class AuthService {
    */
   succesfullRememberLogin(response: any) {
     if (response.token) {
-      this.toastService.setPositiveMessage('Logged in successfully.');
       this.navigator.navigateTo('/videos');
       this.sending.set(false);
     }
@@ -118,7 +116,7 @@ export class AuthService {
    */
   guestLogin() {
     this.loginData.set({
-      email: 'guest@videoflix.paul-ivan.com',
+      email: 'guest.videoflix@gmail.com',
       password: 'guest123Guest'
     })
     this.login();

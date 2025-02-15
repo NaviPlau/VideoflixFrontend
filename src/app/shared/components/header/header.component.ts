@@ -14,6 +14,7 @@ export class HeaderComponent {
   actualRoute: string;
   navigator = inject(NavigationService);
   authService = inject(AuthService);
+  isWideScreen = window.innerWidth > 750;
 
   /**
    * Initializes the component with the current route URL.
@@ -21,6 +22,9 @@ export class HeaderComponent {
    */
   constructor(private router: Router){
     this.actualRoute = this.router.url;
+    window.addEventListener('resize', () => {
+      this.isWideScreen = window.innerWidth > 750;
+    })
   }
 
 }
