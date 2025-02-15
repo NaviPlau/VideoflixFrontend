@@ -14,6 +14,11 @@ export class HeaderComponent {
   actualRoute: string;
   navigator = inject(NavigationService);
   authService = inject(AuthService);
+
+  /**
+   * Initializes the component with the current route URL.
+   * @param router The router used to get the current URL.
+   */
   constructor(private router: Router){
     this.actualRoute = this.router.url;
   }

@@ -20,10 +20,20 @@ export class LandingInfoComponent {
     )),
   });
 
+
+  /**
+   * Returns the form control associated with the email input field.
+   * This control can be used to access or manipulate the value and
+   * validation state of the email field within the form.
+   */
   get emailControl() {
     return this.emailForm.get('email') as FormControl;
   }
 
+  /**
+   * Updates the email value in the AuthService's landingEmail observable with the current value from the email form control.
+   * If the email form control is empty or undefined, sets an empty string.
+   */
   updateLandingEmail() {
     this.authService.landingEmail.set(this.emailForm.get('email')?.value || '');
   }

@@ -15,13 +15,15 @@ import { AuthService } from '../shared/services/auth-service/auth.service';
 export class LandingPageComponent {
   animationClass = 'fade-in';
   authService = inject(AuthService);
+  
+  /*
+   * When the component is created, it will attempt to log the user in
+   * automatically with the remembered login credentials.
+   */
   constructor(
     public backgroundService: BackgroundImageService,
   ) {
     this.authService.rememberedLogin();
   }
-  
- 
-
 }
 

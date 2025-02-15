@@ -13,6 +13,10 @@ export class FooterComponent {
   actualRoute: string;
   navigator = inject(NavigationService);
 
+  /**
+   * Sets the current route to the router's current URL.
+   * @param router The router used to get the current URL.
+   */
   constructor(private router: Router) {
     this.actualRoute = this.router.url;
   }

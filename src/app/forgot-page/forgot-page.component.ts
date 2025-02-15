@@ -13,6 +13,11 @@ import { BackgroundImageService } from '../shared/services/bg-image-service/back
 })
 export class ForgotPageComponent {
   animationClass = 'fade-in';
+  
+  /**
+   * @constructor
+   * @param backgroundService service for background images
+   */
   constructor(
     public backgroundService: BackgroundImageService,
   ) {}

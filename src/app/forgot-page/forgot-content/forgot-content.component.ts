@@ -19,15 +19,27 @@ export class ForgotContentComponent implements OnInit {
     email: new FormControl(this.authService.forgotEmail(), [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)])
   });
 
+  /**
+   * Retrieves the form control for the email field from the email form group.
+   */
   get emailControl() {
     return this.emailForm.get('email') as FormControl;
   }
 
+  /**
+   * Updates the email value in the AuthService's forgotEmail observable with the current value from the email form control. If the email
+   * form control is empty or undefined, sets an empty string.
+   */
   updateForgotEmail() {
     this.authService.forgotEmail.set(this.emailForm.get('email')?.value || '');
   }
 
-  ngOnInit(){
+  /**
+   * Called when the component is initialized.
+   * Sets the AuthService's successful observable to false, indicating that the user has not successfully
+   * completed the forgot password process.
+   */
+  ngOnInit() {
     this.authService.successful.set(false);
   }
 }

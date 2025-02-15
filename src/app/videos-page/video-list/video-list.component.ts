@@ -15,5 +15,4 @@ import { HttpsService } from '../../shared/services/https-service/https.service'
 export class VideoListComponent{
   videoService = inject(VideoServiceService);
 
-
 }
