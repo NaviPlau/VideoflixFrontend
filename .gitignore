@@ -12,6 +12,7 @@ yarn-error.log
 .out-tsc/
 .bazel-out/
 .angular/
+documentation
 
 # IDEs and editors
 .idea/
