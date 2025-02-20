@@ -8,7 +8,7 @@ import { HttpsService } from '../https-service/https.service';
   providedIn: 'root'
 })
 export class AuthService {
-  BASE_URL = 'http://127.0.0.1:8000/videoflix/api';
+  BASE_URL = 'https://vm.paul-ivan.com/videoflix/api';
   navigator = inject(NavigationService)
   toastService = inject(ToastService)
   httpsService = inject(HttpsService)

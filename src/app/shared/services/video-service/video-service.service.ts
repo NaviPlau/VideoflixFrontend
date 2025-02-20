@@ -37,7 +37,7 @@ export class VideoServiceService {
    * This is usually called once when the service is initialized.
    */
   getVideoData() {
-    this.http.get<any[]>('http://127.0.0.1:8000/videoflix/api/videos/')
+    this.http.get<any[]>('https://vm.paul-ivan.com/videoflix/api/videos/')
       .subscribe(data => {
         this.videoData.set(data);
         console.log(this.videoData());
@@ -189,7 +189,7 @@ export class VideoServiceService {
    */
   saveUserProgress(): void {
     if (!this.currentVideo()) return;
-    let apiUrl = `http://127.0.0.1:8000/videoflix/api/video/${this.currentVideo()}/progress/`;
+    let apiUrl = `https://vm.paul-ivan.com/videoflix/api/video/${this.currentVideo()}/progress/`;
     let isFullyWatched = this.currentProgress() >= this.videoDuration() - 2;
     let payload = {
       last_viewed_position: isFullyWatched ? 0 : this.currentProgress(),
