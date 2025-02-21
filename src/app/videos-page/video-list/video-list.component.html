@@ -3,16 +3,17 @@
     @if(videoService.currentVideo() != null){
       <img src="{{ videoService.currentBackgroundVideo().thumbnail }}" alt="">
 
-    }
-    <video class="background-video" [src]="videoService.currentBackgroundVideo().file" autoplay muted [muted]="true"
+    }@else{
+      <video class="background-video" [src]="videoService.currentBackgroundVideo().file" autoplay muted [muted]="true"
       [playsInline]="true" (ended)="videoService.onBackgroundVideoEnded()" play="videoService.currentVideo() !=null">
 
-    </video>
-  <div class="overlay-content">
-    <h1>{{ videoService.currentBackgroundVideo().title }}</h1>
-    <p>{{ videoService.currentBackgroundVideo().description }}</p>
-    <button class="default" (click)="videoService.currentVideo.set(videoService.currentBackgroundVideo().id)">Play</button>
-  </div>
+      </video>
+      <div class="overlay-content">
+        <h1>{{ videoService.currentBackgroundVideo().title }}</h1>
+        <p>{{ videoService.currentBackgroundVideo().description }}</p>
+        <button class="default" (click)="videoService.currentVideo.set(videoService.currentBackgroundVideo().id)">Play</button>
+      </div>
+    }
   }
 </div>
 

@@ -204,9 +204,10 @@ export class VideoplayerComponent implements AfterViewInit {
     this.videoService.videoDuration.set(video.duration);
     this.inactivityService.resetInactivityTimer();
     if (video.ended) {
-      this.videoService.saveUserProgress();
-      this.showOverlay = true;
       this.videoEnded = true;
+      this.showOverlay = true;
+      this.videoService.saveUserProgress(this.videoEnded);
+      
     }
   }
 
@@ -299,7 +300,12 @@ export class VideoplayerComponent implements AfterViewInit {
    * video lists, and removes the 'no-scroll' class from the document body to restore scrolling.
    */
   closeVideo(): void {
-    this.videoService.saveUserProgress();
+    if(this.currentVideoData.user_progress != null){
+      this.videoService.saveUserProgress(this.currentVideoData.user_progress.viewed);
+    }else{
+      this.videoService.saveUserProgress(this.videoEnded);
+    }
+    
     this.videoElement.nativeElement.pause();
     setTimeout(() => {
       this.videoService.currentVideo.set(null);

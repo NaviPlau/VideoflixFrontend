@@ -40,7 +40,6 @@ export class VideoServiceService {
     this.http.get<any[]>('https://vm.paul-ivan.com/videoflix/api/videos/')
       .subscribe(data => {
         this.videoData.set(data);
-        console.log(this.videoData());
         this.mapGenres(this.videoData());
         this.playRandomBackgroundVideo();
         this.filterIfStarted();
@@ -70,7 +69,6 @@ export class VideoServiceService {
       video.user_progress && video.user_progress.viewed === true
     );
     this.viewedVideos.set(viewedVideos);
-    console.log('Viewed Videos:', viewedVideos);
   }
 
   /**
@@ -187,13 +185,13 @@ export class VideoServiceService {
    * The progress is saved to the server as a PATCH request to /video/{videoId}/progress/.
    * If the request is successful, the video data is reloaded.
    */
-  saveUserProgress(): void {
+  saveUserProgress(ended:boolean): void {
     if (!this.currentVideo()) return;
     let apiUrl = `https://vm.paul-ivan.com/videoflix/api/video/${this.currentVideo()}/progress/`;
-    let isFullyWatched = this.currentProgress() >= this.videoDuration() - 2;
+    if(this.currentProgress() >= 0) {
     let payload = {
-      last_viewed_position: isFullyWatched ? 0 : this.currentProgress(),
-      viewed: isFullyWatched
+      last_viewed_position: this.currentProgress(),
+      viewed: ended
     };
     this.http.patch(apiUrl, payload).subscribe(
       response => {
@@ -201,6 +199,7 @@ export class VideoServiceService {
       },
       error => console.error('Error saving progress:', error)
     );
+  }
   }
 
   /**

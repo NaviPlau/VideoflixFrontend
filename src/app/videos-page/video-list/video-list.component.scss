@@ -78,6 +78,7 @@ img.blurred {
 
 .background-video-container {
   position: relative;
+  max-height: 40vh;
   top: 0;
   width: 100%;
   z-index: 9;
@@ -106,20 +107,31 @@ img.blurred {
     position: relative;
     z-index: 1;
     color: white;
-    padding: 20vh 0 50px 96px;
+    padding: 96px 0 50px 96px;
+    overflow: scroll;
+    scrollbar-width: none;
 
     @media (max-width:1000px){
       padding: 100px 0 0 20px;
+    }
+    @media(max-width:600px){
+      padding: 72px 0 0 10px;
     }
     
     h1 {
       font-size: 48px;
       margin: 0;
+      @media (max-width:1000px){
+        font-size: 32px;
+      }
     }
 
     p {
       margin: 10px 0;
       font-size: 18px;
+      @media (max-width:1000px){
+        @include elipsis(100%, 4);
+      }
     }
 
     .play-button {
@@ -141,6 +153,7 @@ img.blurred {
   @media (max-width:1000px){
     padding: 0 20px 40px 20px;
   }
+ 
 }
 
 
