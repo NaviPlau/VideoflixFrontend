@@ -1,49 +1,63 @@
 @use '../../styles/mixins.scss' as *;
 
-header{
+header {
   width: 100%;
   @include display(flex, row, space-between, center);
   height: 108px;
   padding: 0 96px;
-  @media (max-width:750px){
+  @media(max-width:1000px){
     padding: 0 20px;
+  }
+
+  @media (max-width:750px) {
+    
     height: 72px;
   }
+  
 }
 
-img{
+img {
   width: 200px;
   height: 32px;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
     scale: 1.05;
     transition: 125ms;
   }
 }
 
-.logo-short{
+.logo-short {
   height: 48px;
   width: 48px;
 }
 
-mat-icon{
+mat-icon {
   font-size: 32px;
   height: auto;
   width: auto;
   color: white;
+
+  @include display(flex, row, center, center);
+
   cursor: pointer;
-  &:hover{
-    cursor: pointer;
+}
+
+
+.legal-icon {
+  padding: 4px;
+  background-color: $blue;
+  border-radius: 100%;
+
+  &:hover {
     scale: 1.05;
-    transition: 125ms;
   }
 }
 
-.logout{
+.logout {
   font-size: 20px;
 }
 
-button{
+button {
   gap: 12px
 }

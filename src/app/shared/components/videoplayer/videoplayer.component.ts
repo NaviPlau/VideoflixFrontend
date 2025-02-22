@@ -33,6 +33,8 @@ export class VideoplayerComponent implements AfterViewInit {
   videoEnded: boolean = false;
   video!: HTMLVideoElement
   inactivityService = inject(InactivityService);
+  currentTime: number = 0;
+  totalDuration: number = 0;
 
   /**
    * Called after the view has been initialized.
@@ -42,7 +44,31 @@ export class VideoplayerComponent implements AfterViewInit {
     this.setupControlVisibility();
     this.setupFullscreenListener();
     this.fetchAndPlayVideo();
+    this.addEventListeners();
+  }
+
+  /**
+   * Adds event listeners to the video element to set the isLoading property
+   * based on the video's state. This is necessary because the video's readyState
+   * property is not always reliable.
+   */
+  addEventListeners(){
     this.video = this.videoElement.nativeElement
+    this.video.addEventListener('playing', () => {
+      this.isLoading = false; 
+    });
+    this.video.addEventListener('canplay', () => {
+      this.isLoading = false; 
+    });
+    this.video.addEventListener('waiting', () => {
+      this.isLoading = true; 
+    });
+    this.video.addEventListener('stalled', () => {
+      this.isLoading = true;
+    });
+    this.video.addEventListener('loadstart', () => {
+      this.isLoading = true; 
+    });
   }
 
   /**
@@ -152,6 +178,7 @@ export class VideoplayerComponent implements AfterViewInit {
       this.video.play();
       this.isPlaying = true;
       this.showOverlay = false;
+      this.progress = (this.video.currentTime / this.video.duration) * 100;
     } else {
       this.video.pause();
       this.isPlaying = false;
@@ -202,6 +229,8 @@ export class VideoplayerComponent implements AfterViewInit {
     let adjustedPosition = Math.max(0, video.currentTime - 1);
     this.videoService.currentProgress.set(adjustedPosition);
     this.videoService.videoDuration.set(video.duration);
+    this.currentTime = Math.floor(video.currentTime);
+    this.totalDuration = Math.floor(video.duration) || 0;
     this.inactivityService.resetInactivityTimer();
     if (video.ended) {
       this.videoEnded = true;
@@ -221,6 +250,7 @@ export class VideoplayerComponent implements AfterViewInit {
     const progressBar = event.currentTarget as HTMLElement;
     const clickPosition = event.offsetX / progressBar.clientWidth;
     video.currentTime = clickPosition * video.duration;
+    this.progress = video.currentTime;
   }
 
   /**
@@ -323,6 +353,15 @@ export class VideoplayerComponent implements AfterViewInit {
     this.showOverlay = false;
     this.videoElement.nativeElement.play();
     this.isPlaying = true;
+  }
+
+  /**
+   * Returns the current progress of the video player as a percentage of the video's total duration.
+   * The progress is calculated based on the video's current time relative to its total duration.
+   * @returns The current progress of the video player in the range [0, 100].
+   */
+  getProgress(): number {
+    return this.progress;
   }
 }
 

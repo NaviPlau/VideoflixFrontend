@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'imprint', component: ImprintPageComponent },
+  { path: 'legal-notice', component: ImprintPageComponent },
   { path: 'privacy-policy', component: PrivacyPageComponent },
   { path: 'forgot-password', component: ForgotPageComponent },
   { path: 'reset-password/confirm/:token', component: ResetPageComponent },

@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class BackgroundImageService {
-  images = signal<string[]>(this.generateImagePaths(10, 'shared/images/background', '_11zon.webp'));
+  images = signal<string[]>(this.generateImagePaths(10, 'shared/images/background', '-min.webp'));
   currentBackground = signal<string>(this.images()[0]);
   animationClass = signal<string>('fade-in'); 
   lastIndex = 0;

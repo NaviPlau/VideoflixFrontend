@@ -8,8 +8,8 @@ footer{
   @include display(flex, row, center, center);
   gap: 32px;
   padding: 24px 48px;
-  @media (max-width:420px){
-    gap: 16px;
+  @media (max-width:500px){
+    gap: 8px;
   }
 }
 
@@ -29,11 +29,12 @@ strong{
 }
 
 .timer-slider{
-  @include display(flex, row, center, center);
+  @include display(flex, column, center, center);
   gap: 8px;
   span{
     font-size: 16px;
-    width: 65px
+    width: fit-content;
+    min-width: 135px;
   }
 }
 
@@ -44,10 +45,12 @@ strong{
 .videoFooter{
   @include display(flex, row, center, center);
   padding: 24px 96px;
+  position: relative;
+  z-index: 999;
   @media (max-width:1000px){
     padding: 24px 20px;
   }
-  @media (max-width:420px){
+  @media (max-width:500px){
     @include display(flex, column, center, center);
     .extra-link{
       @include display(flex, row, center, center);

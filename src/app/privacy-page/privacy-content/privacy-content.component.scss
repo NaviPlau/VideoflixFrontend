@@ -8,5 +8,14 @@
   overflow-y: scroll;
   scrollbar-width: none;
   justify-content: flex-start;
+  text-align: left;
   gap: 16px;
+}
+
+h2, p, ul{
+  width: 100%;
+}
+
+ul{
+  padding-left: 20px;
 }

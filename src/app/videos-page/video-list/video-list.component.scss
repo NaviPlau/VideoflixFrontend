@@ -3,6 +3,8 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 
@@ -83,8 +85,7 @@ img.blurred {
   width: 100%;
   z-index: 9;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.2));
+  mask-image: linear-gradient(to top, #000000, #0000009e);
 
 
   .background-video {
@@ -110,6 +111,8 @@ img.blurred {
     padding: 96px 0 50px 96px;
     overflow: scroll;
     scrollbar-width: none;
+    max-width: 1920px;
+    margin: 0 auto;
 
     @media (max-width:1000px){
       padding: 100px 0 0 20px;
@@ -149,9 +152,9 @@ img.blurred {
 .list-container{
   position: relative;
   z-index: 999;
-  padding: 0px 96px 40px 96px;
+  padding: 0px 96px 20px 96px;
   @media (max-width:1000px){
-    padding: 0 20px 40px 20px;
+    padding: 0 20px 20px 20px;
   }
  
 }

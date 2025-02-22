@@ -3,19 +3,18 @@
   <!-- Pre-Play Overlay -->
   @if (showOverlay) {
     <div class="video-overlay">
+      @if (isLoading) {
+        <div class="spinner"></div>
+      }
       <h2>{{ currentVideoData?.title }}</h2>
       <p>{{ currentVideoData?.description }}</p>
 
       <div class="overlay-buttons">
         <button (click)="startVideo()">
-          @if (currentVideoData?.user_progress) {
-            @if (currentVideoData.user_progress.last_viewed_position !== 0 && !videoEnded) {
-              ▶ Continue
-            } @else if (currentVideoData.user_progress.viewed) {
-              🔄 Replay
-            } @else {
-              ▶ Play
-            }
+          @if (videoEnded || currentVideoData?.user_progress?.viewed) {
+            🔄 Replay
+          } @else if (getProgress() > 0 || (currentVideoData?.user_progress && currentVideoData.user_progress.last_viewed_position !== undefined)) {
+            ▶ Continue
           } @else {
             ▶ Play
           }
@@ -51,8 +50,13 @@
       <input type="range" min="0" max="1" step="0.01" [(ngModel)]="currentVolume" (input)="changeVolume($event)" class="volume-slider"/>
     </div>
     
-    <div class="progress-bar" (click)="seek($event)">
-      <div class="progress" [style.width.%]="progress"></div>
+    <div class="progress-container">
+      <div class="progress-bar" (click)="seek($event)">
+        <div class="progress" [style.width.%]="progress"></div>
+      </div>
+      <div class="time-display">
+        {{ currentTime }}s / {{ totalDuration }}s
+      </div>
     </div>
 
     <select (change)="changeQuality($event)" class="quality-selector">
