@@ -2,58 +2,106 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.2.
 
-## Development server
+## Prerequisites
 
-To start a local development server, run:
+Ensure you have the following installed before setting up the project:
+
+- **Node.js** (Recommended: `>=18.x.x`) - [Download Here](https://nodejs.org/)
+- **npm** (Comes with Node.js) or **yarn** (optional)  
+- **Angular CLI** (version 19.1.2 or higher)  
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/videoflix.git
+cd videoflix
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+or if using yarn:
+
+```bash
+yarn install
+```
+
+## Development Server
+
+To start the Angular development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then, open your browser and navigate to:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+The app will automatically reload if you make changes to the source files.
 
 ## Building
 
-To build the project run:
+To create a production build:
 
 ```bash
-ng build
+ng build --configuration=production
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This will compile and store the optimized build files in the `dist/` folder.
 
-## Running unit tests
+## Linting and Formatting
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Run **ESLint** to check for linting issues:
 
 ```bash
-ng test
+ng lint
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Format the code using **Prettier**:
 
 ```bash
-ng e2e
+npx prettier --write .
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Additional Commands
 
-## Additional Resources
+### Generate a New Component:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+ng generate component my-component
+```
+
+### Generate a New Service:
+
+```bash
+ng generate service my-service
+```
+
+### Generate a New Module:
+
+```bash
+ng generate module my-module
+```
+
+## Resources
+
+- [Angular CLI Documentation](https://angular.dev/tools/cli)
+- [Angular Official Guide](https://angular.dev/)
+
+## Contact
+
+For more information, visit: [Paul Ivan](https://paul-ivan.com)
+
+## Documentation Link
+
+[Videoflix Frontend Documentation](https://docs.paul-ivan.com/videoflix-frontend/index.html)
+
+
