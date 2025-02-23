@@ -14,8 +14,13 @@
 
 h2, p, ul{
   width: 100%;
+  cursor: default;
 }
 
 ul{
   padding-left: 20px;
+}
+
+strong {
+  cursor: default !important;
 }
