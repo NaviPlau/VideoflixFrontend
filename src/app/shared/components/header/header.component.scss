@@ -30,6 +30,9 @@ img {
 .logo-short {
   height: 48px;
   width: 48px;
+  &:hover {
+    cursor: default;
+  }
 }
 
 mat-icon {
